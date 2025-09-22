@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/register.css">
+</head>
+<body>
+     <header class="header">
+    <!-- Logo -->
+    <div class="logo-shop">
+      <a href="/templates/home.html">
+        <img src="/static/images/logo-header.png" alt="Diang Drink Logo" title="Trở về trang chủ">
+      </a>
+    </div>
+  </header>
+  <div class="banner-register">
+      <span>Chào mừng bạn đến với Diang Drink - Nơi khởi nguồn của những trải nghiệm đồ uống tuyệt vời!</span>
+  </div>
+  <div class="container-register">
+  <div class="register-box">
+    <h2>Đăng ký</h2>
+    <form>
+      <div class="user-box">
+        <input type="text" name="customerName" placeholder="Họ và tên" required>
+      </div>
+      <div class="user-box">
+        <input type="email" name="email" placeholder="Email" required>
+      </div>
+      
+      <div class="user-box">
+        <input type="password" id="password" name="password" placeholder="Mật khẩu" required>
+        <img src="/static/images/visible.png" id="eye-password" alt="hiện mật khẩu" class="icon">
+      </div>
+        <div class="user-box">
+            <input type="password" id="confirm_password" name="confirm_password" placeholder="Xác nhận mật khẩu" required>
+            <img src="/static/images/visible.png" id="eye-confirm" alt="hiện mật khẩu" class="icon">
+      </div>
+      <button type="submit" class="btn">Đăng ký</button>
+      <p class="login-link">
+        Bạn dã có tài khoản? <a href="/templates/login.html">Đăng nhập</a>
+      </p>
+    </form>
+  </div>
+</div>
+
+<script>
+    function togglePassword(inputId,eye){
+        const passwordInput = document.getElementById(inputId);
+        const eyeIcon = document.querySelector(eye);
+        // const eyeIcon = document.getElementById(eye);
+
+        let passwordVisible = false;
+
+        eyeIcon.addEventListener("click", () => {
+            passwordVisible = !passwordVisible;
+            if (passwordVisible) {
+                passwordInput.type = "text";
+                eyeIcon.src = "/static/images/hidden.png"; // Mắt đóng
+                eyeIcon.alt = "Ẩn mật khẩu";
+            } else {
+                passwordInput.type = "password";
+                eyeIcon.src = "/static/images/visible.png"; // Mắt mở
+                eyeIcon.alt = "Hiện mật khẩu";
+            }
+        });
+    }
+
+    // togglePassword("password","eye-password");
+    // togglePassword("confirm_password","eye-confirm");
+    togglePassword("password","#eye-password");
+    togglePassword("confirm_password","#eye-confirm");
+</script>
+</body>
+</html>
