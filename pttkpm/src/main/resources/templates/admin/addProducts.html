@@ -55,6 +55,27 @@
             Mọi quyết định của chúng ta cần đặt <strong>khách hàng</strong> lên hàng đầu.  
             Hãy phục vụ tận tâm, phản hồi nhanh chóng và tạo trải nghiệm tốt nhất cho họ.  
         </p>
+
+        <!-- form đăng ký sản phẩm form này được bao quát cả thẻ nhưng không được làm thay đổi   -->
+        <form th:action="@{/addProducts}" 
+              th:object ="${product}"
+                method="post"
+                enctype="multipart/form-data"
+        >
+        <input type="text" th:field ="*{productName}" placeholder="tên sản phẩm" autocomplete="off">
+        <input type="text" th:field ="*{category}" placeholder="Size" autocomplete="off">
+        <input type="number" th:field ="*{price}" placeholder="giá sản phẩm" autocomplete="off">
+        <input type="file" name="uploadFile" id="" >
+
+        <label>Trạng thái</label>
+        <select th:field="*{status}" name="status" class="form-select" required>
+            <option value="AVAILABLE">Available</option>
+            <option value="NOT_AVAILABLE">Not available</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Thêm</button>
+        </form>
+
+
     </div>
 
     <script>
