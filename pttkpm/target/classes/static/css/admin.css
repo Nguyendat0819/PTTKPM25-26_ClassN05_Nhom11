@@ -1,0 +1,152 @@
+body {
+  font-family: "Zalando Sans Expanded", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 12px 30px;
+  /* background-color: #82AE55; */
+  background-image: linear-gradient(to right, #6FED53, #14F571,#84ED53);
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+.logo-shop img {
+  height: 80px;
+  width: auto;
+  object-fit: contain;
+  background-position: center;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 80px;
+}
+
+.header-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #333;
+  font-size: 15px;
+  gap: 4px;
+  font-weight: bold;
+  line-height: 1.6;
+}
+
+.header-action img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+}
+
+.header-action:hover img {
+  transform: scale(1.1);
+}
+
+.header-action:hover span {
+  color: #fff;
+}
+
+.header-action:hover div {
+  color: #fff; 
+}
+
+.customer-reminder {
+  background-color: #f6f5f5;  
+  border-left: 5px solid #4caf50;
+  padding: 15px 20px;
+  margin: 20px;
+  border-radius: 6px;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.customer-reminder h3 {
+  margin: 0 0 8px 0;
+  color: #2e7d32;
+}
+
+.customer-reminder p {
+  margin: 0;
+  color: #333;
+  line-height: 1.5;
+}
+
+/* Nội dung quản trị */
+.admin-content {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.img-admin {
+  width: 650px; 
+  height: auto; 
+  margin: 20px auto;
+}
+
+.img-admin img {
+  width: 100%;  
+  height: auto; 
+  border-radius: 8px;
+}
+
+.footer {
+  width: 91%;
+  padding: 40px 60px;
+  background-image: linear-gradient(to right, #6FED53, #14F571, #84ED53);
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo-footer img {
+  height: 150px;
+  width: auto;
+  object-fit: contain;
+}
+
+.footer-content > div {
+  flex: 1;
+  min-width: 200px;
+}
+
+.footer h3 {
+  font-size: 18px;
+  margin-bottom: 12px;
+  font-weight: bold;
+}
+
+.footer p,
+.footer a {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #f9f9f9;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 6px;
+  transition: color 0.3s ease;
+}
+
+.footer a:hover {
+  color: #222;
+  font-weight: bold;
+}

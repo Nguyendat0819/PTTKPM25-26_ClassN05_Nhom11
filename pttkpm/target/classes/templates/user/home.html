@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diang Drink</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" th:href="@{/css/home.css}">
+</head>
+<body>
+  <header class="header">
+    <!-- Logo -->
+    <div class="logo-shop">
+      <a th:href="@{/home}" id="logo-link">
+        <img th:src="@{/images/logo-header.png}" alt="Diang Drink Logo" title="Trở về trang chủ">
+      </a>
+    </div>
+
+    <!-- Search -->
+    <div class="search-bar">
+      <form th:action="@{/search}" method="get">
+        <input type="text" name="query" placeholder="Tìm kiếm đồ uống..." class="search-input">
+        <button type="submit" class="header-search-btn">
+          <img th:src="@{/images/search.png}" alt="search-icon" title="Tìm kiếm">
+        </button>
+      </form>
+    </div>
+
+    <!-- Actions -->
+    <div class="header-actions">
+      <a class="header-action" href="tel:1234.5678" title="Nhấn để gọi" style="text-decoration: none; color: white;">
+        <img th:src="@{/images/phone.png}" alt="phone-icon" title="Gọi ngay"> 
+        <div class="contact">0909 999 999</div>
+      </a>
+      <a th:href="@{/cart}" class="header-action">
+        <img th:src="@{/images/shopping-cart-empty-side-view.png}" alt="cart-icon" title="Xem giỏ hàng">
+        <span>Giỏ hàng</span>
+      </a>
+      <a th:href="@{/login}" class="header-action">
+        <img th:src="@{/images/user.png}" alt="user-icon" title="Xem tài khoản">
+        <span>Tài khoản</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="menu-sidebar">
+      <nav class="menu-nav">
+        <h2 class="menu-title" style="font-size: 16px;">Menu</h2>
+        <ul class="menu-list" type="none">
+          <li><a href="#">Món 1</a></li>
+          <li><a href="#">Món 2</a></li>
+          <li><a href="#">Món 3</a></li>
+          <li id="moreMenu" style="display:none;">
+            <ul type="none">
+              <li><a href="#">Món 4</a></li>
+              <li><a href="#">Món 5</a></li>
+            </ul>
+          </li>  
+        </ul>
+        <button id="toggleMenu">Xem thêm</button>
+      </nav>
+    </div>
+
+    <div class="right-content">
+      <div class="new-drink">
+        <h2 style="margin-top: 0px; font-size: 20px; font-family: Arial, sans-serif;">Thức uống mới</h2>
+        <div class="new-drink-list"></div>
+      </div>
+      
+      <div class="drinks">
+        <h2 style="margin-top: 0px; font-size: 20px; font-family: Arial, sans-serif;">Thức uống</h2>
+        <div class="drink-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="logo-footer">
+        <a th:href="@{/home}">
+          <img th:src="@{/images/logo-header.png}" alt="logo-footer" title="Diang Drink">
+        </a>
+      </div>
+      <div class="about-diang">
+        <h3 style="color: #333;">Về Diang Drink</h3>
+        <p>Diang Drink cam kết mang đến cho bạn những trải nghiệm đồ uống tuyệt vời nhất với nguyên liệu tươi ngon và công thức độc đáo.</p>
+        <a href="#">Nguồn gốc</a>
+        <a href="#">Dịch vụ</a>
+        <a href="#">Tuyển dụng</a>
+        <a href="#">Liên hệ</a>
+      </div>
+      <div class="customer-support">
+        <h3 style="color: #333;">Hỗ trợ khách hàng</h3>
+        <a href="#">Chính sách đổi trả</a>
+        <a href="#">Chính sách bảo mật</a>
+        <a href="#">Điều khoản dịch vụ</a>
+        <a href="#">Câu hỏi thường gặp</a>
+      </div>
+      <div class="system-store">
+        <h3 style="color: #333;">Hệ thống cửa hàng</h3>
+        <p>Hà Nội: 123 Đường A, Quận B</p>
+        <p>Hồ Chí Minh: 456 Đường C, Quận D</p>
+        <p>Đà Nẵng: 789 Đường E, Quận F</p>
+        <p>Liên hệ: 0909 999 999</p>
+      </div>
+      <div class="follow-us">
+        <h3>Theo dõi chúng tôi:</h3>
+        <a href="#"><img th:src="@{/images/tiktok.png}" alt="tiktok-icon" title="TikTok"></a>
+        <a href="#"><img th:src="@{/images/instagram.png}" alt="instagram-icon" title="Instagram"></a>
+        <a href="#"><img th:src="@{/images/facebook.png}" alt="facebook-icon" title="Facebook"></a>
+        <a href="#"><img th:src="@{/images/youtube.png}" alt="youtube-icon" title="YouTube"></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JS nhúng trực tiếp -->
+  <script>
+    document.getElementById("toggleMenu").addEventListener("click", function () {
+      let moreMenu = document.getElementById("moreMenu");
+      if (moreMenu.style.display === "none") {
+        moreMenu.style.display = "block";
+        this.textContent = "Thu gọn";
+      } else {
+        moreMenu.style.display = "none";
+        this.textContent = "Xem thêm";
+      }
+    });
+
+    const logoLink = document.getElementById("logo-link");
+    logoLink.addEventListener("click", function(e) {
+      if (window.location.pathname === "/home") {
+        e.preventDefault();
+        console.log("Đang ở trang chủ, không load lại nữa!");
+      }
+    });
+  </script>
+</body>
+</html>

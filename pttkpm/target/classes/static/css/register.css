@@ -1,0 +1,128 @@
+body {
+  font-family: "Zalando Sans Expanded", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 12px 30px;
+  /* background-color: #82AE55; */
+  background-image: linear-gradient(to right, #6FED53, #14F571,#84ED53);
+  color: #fff;
+}
+
+.logo-shop img {
+  height: 80px;
+  width: auto;
+  object-fit: contain;
+  background-position: center;
+}
+
+.banner-register {
+  text-align: center;
+  background-color: #f0f0f0;
+  padding: 15px 0;
+  font-size: 18px;
+  color: #333;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.container-register {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  animation-delay: 1s;
+}
+
+.register-box {
+  width: 320px;
+  padding: 25px;
+  border: 2px solid #6FED53;
+  border-radius: 10px;
+  box-shadow: 0 0 20px #84ED53;
+  background: #fff;
+  text-align: center;
+}
+
+.register-box h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.user-box {
+  position: relative;
+  margin-bottom: 18px;
+}
+
+.user-box .icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  width: 18px;
+  height: 18px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.user-box input {
+  width: 86%;
+  padding: 10px 10px 10px 0px;
+  border: none;
+  border-bottom: 2px solid #333;
+  /* border-radius: 4px; */
+  outline: none;
+  transition: 0.3s;
+}
+
+.user-box input:focus  {
+  border-bottom:2px solid #6FED53;
+}
+
+.btn {
+  margin-top: 10px;
+  width: 100%;
+  padding: 10px;
+  background: #6FED53;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background: #57c842;
+}
+
+.login-link {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.login-link a {
+  color: #57c842;
+  text-decoration: none;
+}
+
+/* hieuung xuất hiện từ dưới lên */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.container-register{
+  opacity: 0; /* ẩn ban đầu */
+  animation: fadeInUp 0.6s ease forwards;
+}

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trạng thái đơn hàng</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- CSS trong static -->
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body>
+<header class="header">
+    <!-- Logo -->
+    <div class="logo-shop">
+        <a th:href="@{/user/home}">
+            <img th:src="@{/images/logo-header.png}" alt="Diang Drink Logo" title="Trở về trang chủ">
+        </a>
+    </div>
+    <!-- Actions -->
+    <div class="header-actions">
+        <a class="header-action" th:href="@{/admin/addProducts}" title="Thêm sản phẩm">
+            <img th:src="@{/images/add.png}" alt="add-icon" title="Thêm sản phẩm"> 
+            <div class="add">Thêm sản phẩm</div>
+        </a>
+        <a class="header-action" th:href="@{/admin/editProducts}" title="Quản lý sản phẩm" style="text-decoration: none; color: #333">
+            <img th:src="@{/images/edit.png}" alt="edit-icon" title="Chỉnh sửa sản phẩm"> 
+            <div class="edit">Quản lý sản phẩm</div>
+        </a>
+        <a th:href="@{/admin/manageCustomers}" class="header-action">
+            <img th:src="@{/images/relationship.png}" alt="relationship-icon" title="Quản lý khách hàng">
+            <span>Quản lý khách hàng</span>
+        </a>
+        <a th:href="@{/admin/orderStatus}" class="header-action">
+            <img th:src="@{/images/clipboard.png}" alt="status-icon" title="Xem đơn hàng">
+            <span>Trạng thái đơn hàng</span>
+        </a>
+        <a th:href="@{/admin/profit}" class="header-action">
+            <img th:src="@{/images/profit.png}" alt="profit-icon" title="Xem doanh số">
+            <span>Doanh số</span>
+        </a>
+        <a th:href="@{/logout}" class="header-action">
+            <img th:src="@{/images/logout.png}" alt="logout-icon" title="Đăng xuất">
+            <span>Đăng xuất</span>
+        </a>
+    </div>
+</header>
+
+<div class="customer-reminder">
+    <h3>Ghi nhớ:</h3>
+    <p>
+      Mọi quyết định của chúng ta cần đặt <strong>khách hàng</strong> lên hàng đầu.  
+      Hãy phục vụ tận tâm, phản hồi nhanh chóng và tạo trải nghiệm tốt nhất cho họ.  
+    </p>
+</div>
+
+<script>
+    const links = document.querySelectorAll(".header-action");
+    const currentLink = window.location.pathname;
+
+    links.forEach(link => {
+        if (link.getAttribute("href") === currentLink) {
+            link.classList.add("active");
+        }
+    });
+</script>
+</body>
+</html>

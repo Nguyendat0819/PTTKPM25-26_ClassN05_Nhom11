@@ -11,18 +11,29 @@ public class AdminController {
         return "admin/AdminPage";
     }
 
-    @GetMapping("/admin/AddProducts")
-    public String AddProductsView() {
-        return "admin/AddProducts";
+    @GetMapping("/admin/addProducts")
+    public String addProductsView() {
+        return "admin/addProducts";
     }
 
-    @GetMapping("/admin/DeleteProduct")
-    public String DeleteProductView() {
-        return "admin/DeleteProduct";
+    @GetMapping("/admin/editProducts")
+    public String editProductsView() {
+        return "admin/editProducts";
     }
 
-    @GetMapping("/admin/EditProduct")
-    public String EditProductView() {
-        return "admin/EditProduct";
+    @GetMapping("/admin/manageCustomers")
+    public String manageCustomerView(){
+        return "admin/manageCustomers";
+    }
+
+
+    @GetMapping("/admin/orderStatus")
+    public String orderStatusView(){
+        return "admin/orderStatus";
+    }
+
+    @GetMapping("/admin/profit")
+    public String profitView(){
+        return "admin/profit";
     }
 }

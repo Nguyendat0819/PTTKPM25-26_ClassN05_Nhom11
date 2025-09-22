@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/register.css}">
+</head>
+<body>
+    <header class="header">
+        <!-- Logo -->
+        <div class="logo-shop">
+            <a th:href="@{/home}">
+                <img th:src="@{/images/logo-header.png}" alt="Diang Drink Logo" title="Trở về trang chủ">
+            </a>
+        </div>
+    </header>
+
+    <div class="banner-register">
+        <span>Chào mừng bạn đến với Diang Drink - Nơi khởi nguồn của những trải nghiệm đồ uống tuyệt vời!</span>
+    </div>
+
+    <div class="container-register">
+        <div class="register-box">
+            <h2>Đăng ký</h2>
+            <form th:action="@{/register}" method="post">
+                <div class="user-box">
+                    <input type="text" name="customerName" placeholder="Họ và tên" required>
+                </div>
+                <div class="user-box">
+                    <input type="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="user-box">
+                    <input type="password" id="password" name="password" placeholder="Mật khẩu" required>
+                    <img th:src="@{/images/visible.png}" id="eye-password" alt="hiện mật khẩu" class="icon">
+                </div>
+                <div class="user-box">
+                    <input type="password" id="confirm_password" name="confirm_password" placeholder="Xác nhận mật khẩu" required>
+                    <img th:src="@{/images/visible.png}" id="eye-confirm" alt="hiện mật khẩu" class="icon">
+                </div>
+                <button type="submit" class="btn">Đăng ký</button>
+                <p class="login-link">
+                    Bạn đã có tài khoản? <a th:href="@{/login}">Đăng nhập</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        function togglePassword(inputId, eyeSelector) {
+            const passwordInput = document.getElementById(inputId);
+            const eyeIcon = document.querySelector(eyeSelector);
+
+            let passwordVisible = false;
+
+            eyeIcon.addEventListener("click", () => {
+                passwordVisible = !passwordVisible;
+                if (passwordVisible) {
+                    passwordInput.type = "text";
+                    eyeIcon.src = /*[[@{/images/hidden.png}]]*/ "/images/hidden.png"; 
+                    eyeIcon.alt = "Ẩn mật khẩu";
+                } else {
+                    passwordInput.type = "password";
+                    eyeIcon.src = /*[[@{/images/visible.png}]]*/ "/images/visible.png"; 
+                    eyeIcon.alt = "Hiện mật khẩu";
+                }
+            });
+        }
+
+        togglePassword("password", "#eye-password");
+        togglePassword("confirm_password", "#eye-confirm");
+    </script>
+</body>
+</html>

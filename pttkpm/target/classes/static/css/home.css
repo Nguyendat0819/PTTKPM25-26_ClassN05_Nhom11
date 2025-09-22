@@ -1,0 +1,285 @@
+body {
+  font-family: "Zalando Sans Expanded", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 12px 30px;
+  /* background-color: #82AE55; */
+  background-image: linear-gradient(to right, #6FED53, #14F571,#84ED53);
+  color: #fff;
+}
+
+.logo-shop img {
+  height: 80px;
+  width: auto;
+  object-fit: contain;
+  background-position: center;
+}
+
+.search-bar form {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 25px;
+  padding: 5px 10px;
+  width: 400px;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 25px;
+}
+
+.header-search-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-search-btn img {
+  width: 20px; 
+  height: 20px;
+  object-fit: contain;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.contact {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  font-weight: bold;
+}
+
+.header-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #333;
+  font-size: 13px;
+  gap: 4px;
+  font-weight: bold;
+}
+
+.header-action img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+}
+
+.header-action:hover img {
+  transform: scale(1.1);
+}
+
+.header-action:hover span {
+  color: #fff;
+}
+
+.header-action:hover div {
+  color: #fff; 
+}
+
+.main-content {
+  display: flex;
+  padding: 20px 30px;
+  gap: 20px;
+}
+
+.menu-nav {
+  margin-top: 20px;
+  width: 150px;
+  background: #f6f5f5;  
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 15px;
+  font-family: Arial, sans-serif;
+}
+
+/* Tiêu đề */
+.menu-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+/* Danh sách menu */
+.menu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-list li {
+  margin-bottom: 6px;
+}
+
+/* Link trong menu */
+.menu-list li a {
+  display: block;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  text-decoration: none;
+  color: #333;
+  transition: all 0.2s ease;
+}
+
+/* Hover chung */
+.menu-list li a:hover {
+  /* background: #4caf50;    */
+  background-image: linear-gradient(to right, #6FED53, #14F571,#84ED53);
+  color: #fff;         
+  font-weight: bold;
+}
+
+#moreMenu ul {
+  list-style: none;
+  margin: 6px 0 0 10px; 
+  padding: 0;
+}
+
+#moreMenu ul li a {
+  font-size: 13px;
+  padding: 6px 12px;
+  border-radius: 5px;
+  color: #555;
+}
+
+#moreMenu ul li a:hover {
+  /* background: #388e3c;   */
+  background-image: linear-gradient(to right, #6FED53, #14F571,#84ED53);
+  color: #fff;
+}
+
+/* xem them */
+#toggleMenu {
+  margin-top: 12px;
+  padding: 6px 12px;
+  border: none;
+  /* background: #82AE55; */
+  background-image: linear-gradient(to right, #6FED53, #14F571,#84ED53);
+  color: #fff;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#toggleMenu:hover {
+  background: #f6f5f5;
+  color:#333;
+}
+
+.right-content {
+  margin-top: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.new-drink, .best-seller {
+  background: #f6f5f5;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  padding-top: 0px;
+  padding: 30px;
+  min-height: 150px;
+}
+
+.drinks {
+  background: #f6f5f5;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  padding: 15px;
+  min-height: 500px;
+  flex: 1;
+}
+
+.footer {
+  width: 91%;
+  padding: 40px 60px;
+  background-image: linear-gradient(to right, #6FED53, #14F571, #84ED53);
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo-footer img {
+  height: 150px;
+  width: auto;
+  object-fit: contain;
+}
+
+.footer-content > div {
+  flex: 1;
+  min-width: 200px;
+}
+
+.footer h3 {
+  font-size: 18px;
+  margin-bottom: 12px;
+  font-weight: bold;
+}
+
+.footer p,
+.footer a {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #f9f9f9;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 6px;
+  transition: color 0.3s ease;
+}
+
+.footer a:hover {
+  color: #222;
+  font-weight: bold;
+}
+
+.follow-us {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.social-media-icons img {
+  width: 30px;
+  height: 30px;
+  transition: transform 0.3s ease;
+}
+
+.social-media-icons img:hover {
+  transform: scale(1.2);
+}
