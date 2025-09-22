@@ -3,31 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thêm sản phẩm</title>
+    <title>Admin Diang</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@300;400;600&display=swap" rel="stylesheet">
-
-    <!-- CSS -->
-    <link th:href="@{/css/admin.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
 </head>
 <body>
     <header class="header">
         <!-- Logo -->
         <div class="logo-shop">
-            <a th:href="@{/}">
+            <a th:href="@{/home}">
                 <img th:src="@{/images/logo-header.png}" alt="Diang Drink Logo" title="Trở về trang chủ">
             </a>
         </div>
-
         <!-- Actions -->
         <div class="header-actions">
             <a class="header-action" th:href="@{/admin/add-products}" title="Thêm sản phẩm">
-                <img th:src="@{/images/add.png}" alt="add-icon" title="Thêm sản phẩm">
+                <img th:src="@{/images/add.png}" alt="add-icon" title="Thêm sản phẩm"> 
                 <div class="add">Thêm sản phẩm</div>
             </a>
-            <a class="header-action" th:href="@{/admin/edit-products}" title="Quản lý sản phẩm" style="text-decoration: none; color: #333">
-                <img th:src="@{/images/edit.png}" alt="edit-icon" title="Chỉnh sửa sản phẩm">
+            <a class="header-action" th:href="@{/admin/edit-products}" title="Quản lý sản phẩm">
+                <img th:src="@{/images/edit.png}" alt="edit-icon" title="Chỉnh sửa sản phẩm"> 
                 <div class="edit">Quản lý sản phẩm</div>
             </a>
             <a th:href="@{/admin/customers}" class="header-action">
@@ -56,6 +53,47 @@
             Hãy phục vụ tận tâm, phản hồi nhanh chóng và tạo trải nghiệm tốt nhất cho họ.  
         </p>
     </div>
+
+    <!-- Nội dung quản trị -->
+    <div class="admin-content">
+        <h1>Quản lý hiệu quả – Phục vụ tận tâm.</h1>
+    </div>
+
+    <div class="img-admin">
+        <img th:src="@{/images/solidarity.avif}" alt="admin-image" title="Hình ảnh quản trị">
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="logo-footer">
+                <a th:href="@{/home}">
+                    <img th:src="@{/images/logo-header.png}" alt="logo-footer" title="Diang Drink">
+                </a>
+            </div>
+            <div class="about-diang">
+                <h3 style="color: #333;">Về Diang Drink</h3>
+                <p>Diang Drink cam kết mang đến cho bạn những trải nghiệm đồ uống tuyệt vời nhất với nguyên liệu tươi ngon và công thức độc đáo.</p>
+                <a href="#">Nguồn gốc</a>
+                <a href="#">Dịch vụ</a>
+                <a href="#">Tuyển dụng</a>
+                <a href="#">Liên hệ</a>
+            </div>
+            <div class="customer-support">
+                <h3 style="color: #333;">Hỗ trợ khách hàng</h3>
+                <a href="#">Chính sách đổi trả</a>
+                <a href="#">Chính sách bảo mật</a>
+                <a href="#">Điều khoản dịch vụ</a>
+                <a href="#">Câu hỏi thường gặp</a>
+            </div>
+            <div class="system-store">
+                <h3 style="color: #333;">Hệ thống cửa hàng</h3>
+                <p>Hà Nội: 123 Đường A, Quận B</p>
+                <p>Hồ Chí Minh: 456 Đường C, Quận D</p>
+                <p>Đà Nẵng: 789 Đường E, Quận F</p>
+                <p>Liên hệ: 0909 999 999</p>
+            </div>
+        </div>
+    </footer>
 
     <script>
         const links = document.querySelectorAll(".header-action");

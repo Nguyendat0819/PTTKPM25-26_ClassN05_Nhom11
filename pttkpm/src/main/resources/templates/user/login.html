@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,59 +7,62 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/login.css">
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
 <body>
     <header class="header">
-    <!-- Logo -->
-    <div class="logo-shop">
-      <a href="/templates/home.html">
-        <img src="/static/images/logo-header.png" alt="Diang Drink Logo" title="Trở về trang chủ">
-      </a>
+        <!-- Logo -->
+        <div class="logo-shop">
+            <a th:href="@{/home}">
+                <img th:src="@{/images/logo-header.png}" alt="Diang Drink Logo" title="Trở về trang chủ">
+            </a>
+        </div>
+    </header>
+
+    <div class="banner-login">
+        <span>Chào mừng bạn đến với Diang Drink - Nơi khởi nguồn của những trải nghiệm đồ uống tuyệt vời!</span>
     </div>
-  </header>
-  <div class="banner-login">
-      <span>Chào mừng bạn đến với Diang Drink - Nơi khởi nguồn của những trải nghiệm đồ uống tuyệt vời!</span>
-  </div>
-  <div class="container-login">
-  <div class="login-box">
-    <h2>Đăng nhập</h2>
-    <form>
-      <div class="user-box">
-        <img src="/static/images/user-signin.png" alt="user" class="icon-left">
-        <input type="text" name="username" placeholder="Tên đăng nhập" required>
-      </div>
-      <div class="user-box">
-        <img src="/static/images/lock.png" alt="lock" class="icon-left">
-        <input type="password" id="password" name="password" placeholder="Mật khẩu" required>
-        <img src="/static/images/visible.png" alt="hiện mật khẩu" class="icon-eye icon">
-      </div>
-      <button type="submit" class="btn">Đăng nhập</button>
-      <p class="regis-link">
-        Bạn chưa có tài khoản? <a href="/templates/register.html">Đăng ký</a>
-      </p>
-    </form>
-  </div>
-</div>
 
-<script>
-    const passwordInput = document.getElementById("password");
-    const eyeIcon = document.querySelector(".icon-eye");
+    <div class="container-login">
+        <div class="login-box">
+            <h2>Đăng nhập</h2>
+            <form th:action="@{/login}" method="post">
+                <div class="user-box">
+                    <img th:src="@{/images/user-signin.png}" alt="user" class="icon-left">
+                    <input type="text" name="username" placeholder="Tên đăng nhập" required>
+                </div>
+                <div class="user-box">
+                    <img th:src="@{/images/lock.png}" alt="lock" class="icon-left">
+                    <input type="password" id="password" name="password" placeholder="Mật khẩu" required>
+                    <img th:src="@{/images/visible.png}" alt="hiện mật khẩu" class="icon-eye icon">
+                </div>
+                <button type="submit" class="btn">Đăng nhập</button>
+                <p class="regis-link">
+                    Bạn chưa có tài khoản? <a th:href="@{/register}">Đăng ký</a>
+                </p>
+            </form>
+        </div>
+    </div>
 
-    let passwordVisible = false;
+    <script th:inline="javascript">
+        const passwordInput = document.getElementById("password");
+        const eyeIcon = document.querySelector(".icon-eye");
 
-    eyeIcon.addEventListener("click", () => {
-        passwordVisible = !passwordVisible;
-        if (passwordVisible) {
-            passwordInput.type = "text";
-            eyeIcon.src = "/static/images/hidden.png"; // Mắt đóng
-            eyeIcon.alt = "Ẩn mật khẩu";
-        } else {
-            passwordInput.type = "password";
-            eyeIcon.src = "/static/images/visible.png"; // Mắt mở
-            eyeIcon.alt = "Hiện mật khẩu";
-        }
-    });
-</script>
+        let passwordVisible = false;
+
+        eyeIcon.addEventListener("click", () => {
+            passwordVisible = !passwordVisible;
+            if (passwordVisible) {
+                passwordInput.type = "text";
+                eyeIcon.src = /*[[@{/images/hidden.png}]]*/ "/images/hidden.png";
+                eyeIcon.alt = "Ẩn mật khẩu";
+            } else {
+                passwordInput.type = "password";
+                eyeIcon.src = /*[[@{/images/visible.png}]]*/ "/images/visible.png";
+                eyeIcon.alt = "Hiện mật khẩu";
+            }
+        });
+    </script>
 </body>
 </html>
