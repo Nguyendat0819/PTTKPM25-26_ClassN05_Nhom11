@@ -15,6 +15,12 @@ public class UserAddress {
     @Column(name = "homeAddress",length = 255)
     private String homeAddress;
 
+
+     // Quan hệ với User (1 user có 1 address)
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    private User user;
+    
     // quan hệ với province
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "province_id")

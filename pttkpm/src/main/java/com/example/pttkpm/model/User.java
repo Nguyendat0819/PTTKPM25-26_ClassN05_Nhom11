@@ -25,9 +25,8 @@ public class User {
     @Column(name = "password", length = 255, nullable = false)
     private String password;
 
-    // Quan hệ với UserAddress (nhiều user có thể tham chiếu cùng 1 address)
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userAddress_id") // khóa ngoại trong bảng user
+   // Quan hệ với UserAddress (1 user có 1 địa chỉ)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private UserAddress userAddress;
 
     // Quan hệ với Orders (1 user có nhiều order)

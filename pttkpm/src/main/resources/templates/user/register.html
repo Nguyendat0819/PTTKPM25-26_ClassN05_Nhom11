@@ -26,19 +26,27 @@
     <div class="container-register">
         <div class="register-box">
             <h2>Đăng ký</h2>
-            <form th:action="@{/register}" method="post">
+            <form th:action="@{/register}"
+                th:object ="${user}"
+                method="post"
+                enctype="multipart/form-data"
+                id="register_form"
+            >
                 <div class="user-box">
-                    <input type="text" name="customerName" placeholder="Họ và tên" required>
+                    <input type="text" th:field="*{name}" placeholder="Họ và tên" required>
                 </div>
                 <div class="user-box">
-                    <input type="email" name="email" placeholder="Email" required>
+                    <input type="email"  th:field="*{email}"  placeholder="Email" required>
                 </div>
                 <div class="user-box">
-                    <input type="password" id="password" name="password" placeholder="Mật khẩu" required>
+                    <input type="number"  th:field="*{phone}" placeholder="Phone" required>
+                </div>
+                <div class="user-box">
+                    <input type="password" id="password"  th:field="*{password}"  placeholder="Mật khẩu" required>
                     <img th:src="@{/images/visible.png}" id="eye-password" alt="hiện mật khẩu" class="icon">
                 </div>
                 <div class="user-box">
-                    <input type="password" id="confirm_password" name="confirm_password" placeholder="Xác nhận mật khẩu" required>
+                    <input type="password" id="confirm_password"  placeholder="Xác nhận mật khẩu" required>
                     <img th:src="@{/images/visible.png}" id="eye-confirm" alt="hiện mật khẩu" class="icon">
                 </div>
                 <button type="submit" class="btn">Đăng ký</button>
@@ -69,6 +77,19 @@
                 }
             });
         }
+
+        const password = document.getElementById("password");
+        const re_password = document.getElementById("confirm_password");
+        const form = document.getElementById("register_form");
+
+        form.addEventListener("submit", function(e){
+            if(password.value != re_password.value){
+                e.preventDefault(); // ngăn chặn submit
+                alert("Mật khẩu không khớp!");
+            }
+        })
+
+
 
         togglePassword("password", "#eye-password");
         togglePassword("confirm_password", "#eye-confirm");

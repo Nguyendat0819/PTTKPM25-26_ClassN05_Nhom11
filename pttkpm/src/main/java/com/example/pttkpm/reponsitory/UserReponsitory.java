@@ -8,5 +8,5 @@ import com.example.pttkpm.model.User;
 @Repository
 
 public interface UserReponsitory extends JpaRepository<User, Integer> {
-    
+    User findByEmail(String email);
 }
