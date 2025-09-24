@@ -27,17 +27,21 @@
     <div class="container-login">
         <div class="login-box">
             <h2>Đăng nhập</h2>
-            <form th:action="@{/login}" method="post">
+            <form th:action="@{/user/login}" 
+            th:object ="${user}"
+            method="post"
+            >
                 <div class="user-box">
                     <img th:src="@{/images/user-signin.png}" alt="user" class="icon-left">
-                    <input type="text" name="username" placeholder="Tên đăng nhập" required>
+                    <input type="text" th:field="*{email}" placeholder="Email đăng nhập" required>
                 </div>
                 <div class="user-box">
                     <img th:src="@{/images/lock.png}" alt="lock" class="icon-left">
-                    <input type="password" id="password" name="password" placeholder="Mật khẩu" required>
+                    <input type="password" id="password" th:field="*{password}" placeholder="Mật khẩu" required>
                     <img th:src="@{/images/visible.png}" alt="hiện mật khẩu" class="icon-eye icon">
                 </div>
                 <button type="submit" class="btn">Đăng nhập</button>
+                <p th:if="${error}" th:text="${error}" style="color:red"></p>
                 <p class="regis-link">
                     Bạn chưa có tài khoản? <a th:href="@{/register}">Đăng ký</a>
                 </p>

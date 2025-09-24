@@ -25,4 +25,13 @@ public class UserService {
         // lưu user
         return  userReponsitory.save(user);
     }
+
+    public User loginUser(User user,
+                          String rawPassword  ){
+        User ktraEmail = userReponsitory.findByEmail(user.getEmail());
+        if(ktraEmail != null && passwordEncoder.matches( rawPassword ,ktraEmail.getPassword())){
+            return ktraEmail;
+        }
+        return null;
+    }
 }
