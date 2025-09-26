@@ -198,27 +198,18 @@ body {
   gap: 10px;
 }
 
-.new-drink, .best-seller {
-  background: #f6f5f5;
-  border-radius: 12px;
-  border: 1px solid #ddd;
-  padding-top: 0px;
-  padding: 30px;
-  min-height: 150px;
-}
 
 .drinks {
   background: #f6f5f5;
   border-radius: 12px;
   border: 1px solid #ddd;
   padding: 15px;
-  min-height: 500px;
   flex: 1;
 }
 
 .footer {
-  width: 91%;
-  padding: 40px 60px;
+  width: 100%;
+  padding: 40px 0px;
   background-image: linear-gradient(to right, #6FED53, #14F571, #84ED53);
   color: #fff;
   font-family: Arial, sans-serif;
@@ -282,4 +273,57 @@ body {
 
 .social-media-icons img:hover {
   transform: scale(1.2);
+}
+
+
+hien thi sp
+.container{
+    max-width: 1600px;
+    margin: auto;
+    padding: 0 50px;
+}
+.container_list{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f5f5;
+}
+.wrapper_column{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+
+}
+.squard{
+    
+    align-content: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: .3125rem;
+}
+
+.squard_img img{
+    width: 217px;
+    height: auto;
+    object-fit: cover;
+    margin-bottom: 30px;
+}
+.squard_items{
+    display: inline;
+    color: black;
+    margin-bottom: 15px;
+}
+.squard_items_name span{
+    font-size: 20px;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+   
+}
+.squard_items_price span{
+    display: flex;
+    justify-content: center;
+    text-align: center;
 }

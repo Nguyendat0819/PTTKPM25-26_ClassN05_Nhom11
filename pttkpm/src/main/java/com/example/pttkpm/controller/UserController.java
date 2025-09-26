@@ -52,9 +52,9 @@ public class UserController {
         }
     }
 
-    //Hiển thị Home
-    @GetMapping("/user/home")
-    public String homeView(){
-        return "/user/home";
-    }
+    // //Hiển thị Home
+    // @GetMapping("/user/home")
+    // public String homeView(){
+    //     return "/user/home";
+    // }
 }

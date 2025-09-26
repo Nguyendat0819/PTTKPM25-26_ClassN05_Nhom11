@@ -1,5 +1,7 @@
 package com.example.pttkpm.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +24,10 @@ public class ProductsService {
         return productsReponsitory.save(product);
     }
     
+    // hàm lấy sản phẩm 
+    public List<Product> getAllProducts(){
+        return productsReponsitory.findAll();
+    }
+
 }
 

@@ -20,7 +20,7 @@ public class Product {
     @Column(name = "product_name", length = 150, nullable = false)
     private String productName;
 
-    @Column(name = "price", precision = 12, scale = 2, nullable = false)
+    @Column(name = "price", precision = 12, scale = 3, nullable = false)
     private BigDecimal price;
 
     @Column(name = "image_url", length = 255)
@@ -33,7 +33,8 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderDetail> orderDetails;
 
-    public Product(){}
+    public Product() {
+    }
 
     public Integer getProductId() {
         return productId;
@@ -90,8 +91,5 @@ public class Product {
     public void setOrderDetails(List<OrderDetail> orderDetails) {
         this.orderDetails = orderDetails;
     }
-
-
-
 
 }
