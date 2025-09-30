@@ -11,4 +11,5 @@ import com.example.pttkpm.model.Product;
 public interface ProductsReponsitory extends JpaRepository<Product,Integer> {
     Product findByProductNameAndCategoryAndPrice(String productName, String category, BigDecimal price );
     
+
 }

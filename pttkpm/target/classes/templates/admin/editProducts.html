@@ -62,40 +62,149 @@
     <h1>Danh sách sản phẩm</h1>
 
     <!-- Ví dụ: render danh sách sản phẩm từ backend -->
-    <table>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Tên sản phẩm</th>
-            <th>Giá</th>
-            <th>Hình ảnh</th>
-            <th>Thao tác</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="product : ${products}">
-            <td th:text="${product.id}"></td>
-            <td th:text="${product.name}"></td>
-            <td th:text="${product.price} + ' VND'"></td>
-            <td><img th:src="@{${product.imageUrl}}" alt="Ảnh sản phẩm" width="80"></td>
-            <td>
-                <a th:href="@{'/admin/edit-products/' + ${product.id}}">Sửa</a> |
-                <a th:href="@{'/admin/delete-product/' + ${product.id}}" onclick="return confirm('Xóa sản phẩm này?')">Xóa</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+
+     <!-- form sửa -->
+      <table border="1" cellspacing="0" cellpadding="8">
+    <thead>
+    <tr>
+        <th>Mã sản phẩm</th>
+        <th>Tên sản phẩm</th>
+        <th>Danh mục</th>
+        <th>Giá</th>
+        <th>Trạng thái</th>
+        <th>Hình ảnh</th>
+        <th>Thao tác</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="product : ${productList}" th:attr="data-id=${product.productId}">
+        <td th:text="${product.productId}"></td>
+        <td th:text="${product.productName}"></td>
+        <td th:text="${product.category}"></td>
+        <td th:text="${product.price}"></td>
+        <td th:text="${product.status}"></td>
+        <td><img th:src="@{'/uploads/' + ${product.imageUrl}}" width="80"></td>
+        <td>
+            <button class="btn-edit">Sửa</button>
+            <button class="btn-delete">Xóa</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- Popup sửa -->
+<div id="editModal" style="display:none; position:fixed; top:15%; left:35%; background:#fff; border:1px solid #ccc; padding:20px; z-index:1000; width:400px;">
+    <h3>Sửa sản phẩm</h3>
+    <form id="editForm">
+        <input type="hidden" id="editProductId">
+
+        <label>Tên sản phẩm:</label><br>
+        <input type="text" id="editName" style="width:100%"><br><br>
+
+        <label>Danh mục:</label><br>
+        <input type="text" id="editCategory" style="width:100%"><br><br>
+
+        <label>Giá:</label><br>
+        <input type="number" id="editPrice" style="width:100%"><br><br>
+
+        <label>Trạng thái:</label><br>
+        <select id="editStatus" style="width:100%">
+            <option value="AVAILABLE">Available</option>
+            <option value="NOT_AVAILABLE">Not available</option>
+        </select><br><br>
+
+        <button type="submit">Lưu</button>
+        <button type="button" onclick="closeEdit()">Hủy</button>
+    </form>
+</div>
+
+<!-- overlay tối nền -->
+<div id="overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4); z-index:999;"></div>
+
 </div>
 
 <script>
-    const links = document.querySelectorAll(".header-action");
-    const currentLink = window.location.pathname;
+    //Mở popup sửa
+    document.querySelectorAll(".btn-edit").forEach(btn => {  // lấy nút  <button class="btn-edit">Sửa</button>
+        btn.addEventListener("click", function () { 
+            const row = this.closest("tr"); // lấy tất cả tr trong bảng table 
+            const productId = row.getAttribute("data-id"); // đã gán trước đó tr th:each="product : ${productList}" th:attr="data-id=${product.productId}">
+            const name = row.children[1].innerText; // lấy nội dung từ ô <td>
+            const category = row.children[2].innerText;
+            const price = row.children[3].innerText;
+            const status = row.children[4].innerText;
 
-    links.forEach(link => {
-        if (link.getAttribute("href") === currentLink) {
-            link.classList.add("active");
-        }
+            document.getElementById("editProductId").value = productId; //rồi gán giá trị của nó vào form sửa 
+            document.getElementById("editName").value = name;
+            document.getElementById("editCategory").value = category;
+            document.getElementById("editPrice").value = price;
+            document.getElementById("editStatus").value = status;
+
+            document.getElementById("editModal").style.display = "block";  // bảng edit sẽ hiển ra
+            document.getElementById("overlay").style.display = "block"; // tạo khoảng trắng đen mờ
+        });
     });
+
+    // Đóng popup
+    function closeEdit() {
+        document.getElementById("editModal").style.display = "none";
+        document.getElementById("overlay").style.display = "none";
+    }
+
+    // Gửi AJAX PUT khi submit form
+    document.getElementById("editForm").addEventListener("submit", function (e) {
+        e.preventDefault(); // chặn reload trang
+
+        const productId = document.getElementById("editProductId").value; // đây là các giá  trị đã bị sửa đổi
+        const productName = document.getElementById("editName").value;
+        const category = document.getElementById("editCategory").value;
+        const price = document.getElementById("editPrice").value;
+        const status = document.getElementById("editStatus").value;
+
+        fetch(`/api/products/${productId}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ productName, category, price, status })
+        })
+        .then(res => res.json())
+        .then(data => {
+            alert("Cập nhật thành công!");
+
+            // update row hiển thị
+            const row = document.querySelector(`tr[data-id='${productId}']`);
+            row.children[1].innerText = data.productName;
+            row.children[2].innerText = data.category;
+            row.children[3].innerText = data.price;
+            row.children[4].innerText = data.status;
+
+            closeEdit();
+        })
+        .catch(err => {
+            alert("Có lỗi khi cập nhật!");
+            console.error(err);
+        });
+    });
+
+    // Xử lý xóa
+    document.querySelectorAll(".btn-delete").forEach(btn => {
+        btn.addEventListener("click", function () {
+            if (confirm("Bạn có chắc muốn xóa sản phẩm này?")) {
+                const row = this.closest("tr");
+                const productId = row.getAttribute("data-id");
+
+                fetch(`/api/products/${productId}`, { method: "DELETE" })
+                    .then(res => {
+                        if (res.ok) {
+                            alert("Xóa thành công!");
+                            row.remove();
+                        } else {
+                            alert("Lỗi khi xóa!");
+                        }
+                    });
+            }
+        });
+    });
+
 </script>
 </body>
 </html>
