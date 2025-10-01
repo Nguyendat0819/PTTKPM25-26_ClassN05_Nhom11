@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="detailProduct">
+        <div >
+            <img th:src="@{'/uploads/' + ${product.imageUrl}}" alt="">
+        </div>
+        <div>
+            <span th:text="${product.productName}"></span>
+        </div>
+        <div>
+            <span th:text="${product.category}"></span>
+        </div>
+        <div>
+            <span th:text="${product.status}"></span>
+        </div>
+    </div>
+    <div>
+        <form th:action="@{/cart/add}" method="post">
+            <input type="hidden" name="productId" th:value="${product.productId}" />
+            <input type="number" name="quantity" value="1" min="1" />
+            <button type="submit">Thêm vào giỏ hàng</button>
+        </form>
+        <div>
+            <button id="buyProduct">Mua ngay</button>
+        </div>
+    </div>
+    
+</body>
+</html>

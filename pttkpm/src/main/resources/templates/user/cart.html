@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Giỏ hàng</title>
+</head>
+<body>
+<h2>Giỏ hàng của bạn</h2>
+
+<div th:if="${order != null}">
+    <table border="1">
+        <tr>
+            <th>Sản phẩm</th>
+            <th>Giá</th>
+            <th>Số lượng</th>
+        </tr>
+        <tr th:each="detail : ${order.orderDetails}">
+            <td th:text="${detail.productName}"></td>
+            <td th:text="${detail.productPrice}"></td>
+            <td th:text="${detail.quantity}"></td>
+        </tr>
+    </table>
+</div>
+
+<div th:if="${order == null}">
+    <p>Chưa có sản phẩm nào trong giỏ.</p>
+</div>
+
+</body>
+</html>

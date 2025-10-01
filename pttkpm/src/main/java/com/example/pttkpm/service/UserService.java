@@ -1,11 +1,15 @@
 package com.example.pttkpm.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import com.example.pttkpm.model.User;
 import com.example.pttkpm.reponsitory.UserReponsitory;
+
+import ch.qos.logback.core.model.Model;
 
 @Service
 public class UserService {
@@ -34,4 +38,11 @@ public class UserService {
         }
         return null;
     }
+
+     public User findByname(String username) {
+        return userReponsitory.findByName(username);
+    }
+    
+
+
 }

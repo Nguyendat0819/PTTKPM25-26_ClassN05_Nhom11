@@ -1,6 +1,7 @@
 package com.example.pttkpm.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,9 +53,10 @@ public class UserController {
         }
     }
 
-    // //Hiển thị Home
-    // @GetMapping("/user/home")
-    // public String homeView(){
-    //     return "/user/home";
-    // }
+    @GetMapping("/profile")
+    public String profile(@AuthenticationPrincipal org.springframework.security.core.userdetails.User user, 
+                        Model model) {
+        model.addAttribute("username", user.getUsername());
+        return "profile";
+    }
 }

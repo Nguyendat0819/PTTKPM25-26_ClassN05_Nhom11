@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -58,4 +59,17 @@ public class ProductController {
         model.addAttribute("productList", productsService.getAllProducts());
         return "user/home";
     }
+
+    // hiển thị 1 sản phẩm
+    @GetMapping("/user/showDetailProduct/{productId}")
+    public String showDetailProduct(@PathVariable("productId") Integer productId, Model model) {
+        Product product = productsService.getProductId(productId);
+        if (product == null) {
+            return "redirect:/user/home";
+        }
+        model.addAttribute("product", product);
+        return "/user/showDetailProduct";
+    }
+
+    
 }

@@ -15,6 +15,10 @@ public class ProductsService {
     @Autowired
     private ProductsReponsitory productsReponsitory;
 
+    public Product getProductId(Integer productId){
+        return productsReponsitory.findByProductId(productId);
+    }
+
     public Product addProducts(Product product) {
         if (productsReponsitory.findByProductNameAndCategoryAndPrice(
                 product.getProductName(),

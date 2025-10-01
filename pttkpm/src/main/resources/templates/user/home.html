@@ -78,7 +78,7 @@
             <div class="container_list">
               <div class="wrapper_column">
                 <div th:each="product: ${productList}" class="squard">
-                    <a th:href="@{/user/home/{id}(id = ${product.productId})}">
+                    <a th:href="@{/user/showDetailProduct/{id}(id = ${product.productId})}">
                       <div class="squard_img">
                         <img th:src="@{'/uploads/' + ${product.imageUrl}}" alt="Product Image">
                       </div>
