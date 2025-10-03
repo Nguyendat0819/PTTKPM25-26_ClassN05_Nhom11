@@ -16,12 +16,15 @@ public class SecurityConfig {
 
     // Bean cấu hình HTTP Security
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(csrf -> csrf.disable()) // tắt CSRF cho API REST
-                .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll() // cho phép tất cả request không cần login
-                );
-        return http.build();
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws
+    Exception {
+    http
+    .csrf(csrf -> csrf.disable()) // tắt CSRF cho API REST
+    .authorizeHttpRequests(auth -> auth
+    .anyRequest().permitAll() // cho phép tất cả request không cần login
+    );
+    return http.build();
     }
+
+    
 }

@@ -18,78 +18,115 @@ import com.example.pttkpm.reponsitory.OrderRepository;
 import com.example.pttkpm.reponsitory.OrderDetailRepository;
 import com.example.pttkpm.service.UserService;
 import com.example.pttkpm.service.ProductsService;
+import jakarta.servlet.http.HttpSession;
+import java.math.BigDecimal;
+import java.util.List;
 
 @Controller
-@RequestMapping("/cart")
+@RequestMapping("/user")
 public class CartController {
 
     private final OrderRepository orderRepository;
     private final OrderDetailRepository orderDetailRepository;
     private final ProductsService productService;
-    private final UserService userService;
 
     public CartController(OrderRepository orderRepository,
             OrderDetailRepository orderDetailRepository,
-            ProductsService productService,
-            UserService userService) {
+            ProductsService productService) {
         this.orderRepository = orderRepository;
         this.orderDetailRepository = orderDetailRepository;
         this.productService = productService;
-        this.userService = userService;
     }
 
-    // ✅ Thêm sản phẩm vào giỏ
-    @PostMapping("/add")
+    // Thêm sản phẩm vào giỏ
+    @PostMapping("/cart")
     public String addToCart(@RequestParam("productId") Integer productId,
-            @RequestParam("quantity") Integer quantity,
-            Principal principal) {
-
-        if (principal == null) {
+                            @RequestParam("quantity") Integer quantity,
+                            HttpSession session) {
+        User user = (User) session.getAttribute("loggedInUser");
+        if (user == null) {
             return "redirect:/user/login";
         }
 
-        // Lấy user từ Principal (theo name)
-        User user = userService.findByname(principal.getName());
-
-        // Kiểm tra order PENDING/NEW
+        // Kiểm tra order NEW của user
         Order order = orderRepository.findByUserAndStatus(user, Orderstatus.NEW)
                 .orElseGet(() -> {
                     Order newOrder = new Order();
                     newOrder.setUser(user);
                     newOrder.setStatus(Orderstatus.NEW);
+                    newOrder.setTotal_amount(BigDecimal.ZERO); // vì cột NOT NULL
                     return orderRepository.save(newOrder);
                 });
 
         // Lấy sản phẩm
         Product product = productService.getProductId(productId);
 
-        // Tạo order detail
-        OrderDetail orderDetail = new OrderDetail();
-        orderDetail.setOrder(order);
-        orderDetail.setProduct(product);
-        orderDetail.setProductName(product.getProductName());
-        orderDetail.setProductPrice(product.getPrice());
-        orderDetail.setQuantity(quantity);
+         // ✅ Kiểm tra sản phẩm đã có trong giỏ chưa
+    List<OrderDetail> details = orderDetailRepository.findByOrderAndProduct(order, product);
+    if (!details.isEmpty()) {
+        OrderDetail existingDetail = details.get(0); // lấy dòng đầu tiên
+        existingDetail.setQuantity(existingDetail.getQuantity() + quantity);
+        orderDetailRepository.save(existingDetail);
 
-        orderDetailRepository.save(orderDetail);
+        // Nếu muốn "dọn sạch" các dòng trùng lặp
+        if (details.size() > 1) {
+            for (int i = 1; i < details.size(); i++) {
+                orderDetailRepository.delete(details.get(i));
+            }
+        }
+    } else {
+        OrderDetail detail = new OrderDetail();
+        detail.setOrder(order);
+        detail.setProduct(product);
+        detail.setProductName(product.getProductName());
+        detail.setProductPrice(product.getPrice());
+        detail.setQuantity(quantity);
+        orderDetailRepository.save(detail);
+    }
 
+
+        // ✅ chuyển tới trang giỏ hàng
         return "redirect:/user/cart";
     }
 
-    // ✅ Xem giỏ hàng
-    @GetMapping("/view")
-    public String viewCart(Model model, Principal principal) {
-        if (principal == null) {
+    // Xem giỏ hàng
+    @GetMapping("/cart")
+    public String viewCart(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("loggedInUser");
+        if (user == null) {
             return "redirect:/user/login";
         }
 
-        User user = userService.findByname(principal.getName());
         Order order = orderRepository.findByUserAndStatus(user, Orderstatus.NEW)
                 .orElse(null);
 
         model.addAttribute("order", order);
-        return "cart"; // cart.html
+        return "user/cart"; // -> resources/templates/user/cart.html
     }
 
-    
+
+    // xử lý trăng giảm số lượng
+    @PostMapping("/cart/increase")
+    public String increaseQuantity(@RequestParam("detailId") Integer detailId) {
+        OrderDetail detail = orderDetailRepository.findById(detailId).orElse(null);
+        if (detail != null) {
+            detail.setQuantity(detail.getQuantity() + 1);
+            orderDetailRepository.save(detail);
+        }
+        return "redirect:/user/cart";
+    }
+
+    @PostMapping("/cart/decrease")
+    public String decreaseQuantity(@RequestParam("detailId") Integer detailId) {
+        OrderDetail detail = orderDetailRepository.findById(detailId).orElse(null);
+        if (detail != null && detail.getQuantity() > 1) {
+            detail.setQuantity(detail.getQuantity() - 1);
+            orderDetailRepository.save(detail);
+        } else if (detail != null && detail.getQuantity() == 1) {
+            // Nếu giảm xuống 0 thì xóa luôn sản phẩm khỏi giỏ
+            orderDetailRepository.delete(detail);
+        }
+        return "redirect:/user/cart";
+    }
+
 }

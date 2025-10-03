@@ -20,7 +20,7 @@
         </div>
     </div>
     <div>
-        <form th:action="@{/cart/add}" method="post">
+        <form th:action="@{/user/cart}" method="post">
             <input type="hidden" name="productId" th:value="${product.productId}" />
             <input type="number" name="quantity" value="1" min="1" />
             <button type="submit">Thêm vào giỏ hàng</button>

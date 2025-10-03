@@ -19,16 +19,17 @@ public class CartService {
     private final OrderDetailRepository orderDetailRepository;
     private final ProductsService productService;
 
-    public CartService(OrderRepository orderRepository, 
-                       OrderDetailRepository orderDetailRepository, 
-                       ProductsService productService) {
+    public CartService(OrderRepository orderRepository,
+            OrderDetailRepository orderDetailRepository,
+            ProductsService productService) {
         this.orderRepository = orderRepository;
         this.orderDetailRepository = orderDetailRepository;
         this.productService = productService;
     }
 
+
     public void addToCart(User user, Integer productId, int quantity) {
-        // ✅ Kiểm tra đơn hàng PENDING của user
+        // ✅ Lấy order NEW (giỏ hàng hiện tại)
         Order order = orderRepository.findByUserAndStatus(user, Orderstatus.NEW)
                 .orElseGet(() -> {
                     Order newOrder = new Order();
@@ -40,15 +41,31 @@ public class CartService {
         // ✅ Lấy sản phẩm
         Product product = productService.getProductId(productId);
 
-        // ✅ Tạo OrderDetail
-        OrderDetail detail = new OrderDetail();
-        detail.setOrder(order);
-        detail.setProduct(product);
-        detail.setProductName(product.getProductName());
-        detail.setProductPrice(product.getPrice());
-        detail.setQuantity(quantity);
+        // ✅ Kiểm tra xem sản phẩm đã có trong giỏ chưa
 
-        orderDetailRepository.save(detail);
+        List<OrderDetail> details = orderDetailRepository.findByOrderAndProduct(order, product);
+        if (!details.isEmpty()) {
+            OrderDetail existingDetail = details.get(0); // lấy dòng đầu tiên
+            existingDetail.setQuantity(existingDetail.getQuantity() + quantity);
+            orderDetailRepository.save(existingDetail);
+
+            // Nếu muốn "dọn sạch" các dòng trùng lặp
+            if (details.size() > 1) {
+                for (int i = 1; i < details.size(); i++) {
+                    orderDetailRepository.delete(details.get(i));
+                }
+            }
+        } else {
+            OrderDetail detail = new OrderDetail();
+            detail.setOrder(order);
+            detail.setProduct(product);
+            detail.setProductName(product.getProductName());
+            detail.setProductPrice(product.getPrice());
+            detail.setQuantity(quantity);
+            orderDetailRepository.save(detail);
+        }
+
+
     }
 
     public List<OrderDetail> getCartItems(User user) {

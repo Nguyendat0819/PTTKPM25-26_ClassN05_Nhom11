@@ -6,10 +6,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import com.example.pttkpm.model.OrderDetail;
 import com.example.pttkpm.model.User;
 import com.example.pttkpm.service.UserService;
+import com.example.pttkpm.reponsitory.OrderDetailRepository;
+import jakarta.servlet.http.HttpSession;
 @Controller
 public class UserController {
     @Autowired
@@ -41,10 +45,11 @@ public class UserController {
 
     // xử lý login
     @PostMapping("/user/login")
-    public String loginSubmit(@ModelAttribute("user") User user, Model model) {
+    public String loginSubmit(@ModelAttribute("user") User user, HttpSession session, Model model) {
         User loggedInUser = userService.loginUser(user, user.getPassword());
         if (loggedInUser != null) {
             // login thành công → chuyển tới dashboard
+            session.setAttribute("loggedInUser", loggedInUser);
             return "redirect:/user/home";
         } else {
             // login thất bại → trả về login với thông báo
@@ -59,4 +64,8 @@ public class UserController {
         model.addAttribute("username", user.getUsername());
         return "profile";
     }
+
+
+    
+
 }

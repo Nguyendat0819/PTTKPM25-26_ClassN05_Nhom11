@@ -13,11 +13,25 @@
             <th>Sản phẩm</th>
             <th>Giá</th>
             <th>Số lượng</th>
+            <th>Hành động</th>
         </tr>
         <tr th:each="detail : ${order.orderDetails}">
             <td th:text="${detail.productName}"></td>
             <td th:text="${detail.productPrice}"></td>
             <td th:text="${detail.quantity}"></td>
+            <td>
+                <!-- nút giảm -->
+                <form th:action="@{/user/cart/decrease}" method="post" style="display:inline;">
+                    <input type="hidden" name="detailId" th:value="${detail.orderDetailId}"/>
+                    <button type="submit">-</button>
+                </form>
+
+                <!-- nút tăng -->
+                <form th:action="@{/user/cart/increase}" method="post" style="display:inline;">
+                    <input type="hidden" name="detailId" th:value="${detail.orderDetailId}"/>
+                    <button type="submit">+</button>
+                </form>
+            </td>
         </tr>
     </table>
 </div>
