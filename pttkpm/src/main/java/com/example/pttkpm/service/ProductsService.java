@@ -53,4 +53,9 @@ public class ProductsService {
         }
         productsReponsitory.deleteById(productId);
     }
+
+    // tìm kiếm sản phẩm
+    public List<Product>  searchProducts(String keyword){
+        return productsReponsitory.findByProductNameContainingIgnoreCase(keyword);
+    }
 }

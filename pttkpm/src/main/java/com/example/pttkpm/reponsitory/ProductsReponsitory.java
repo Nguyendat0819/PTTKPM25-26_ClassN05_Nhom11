@@ -6,10 +6,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.example.pttkpm.model.Product;
+import java.util.List;
 
 @Repository
 public interface ProductsReponsitory extends JpaRepository<Product,Integer> {
     Product findByProductNameAndCategoryAndPrice(String productName, String category, BigDecimal price );
     
     Product findByProductId(Integer productId);
+
+    // tìm kiếm tên sản phẩm 
+    List<Product> findByProductNameContainingIgnoreCase(String productName);
 }

@@ -22,15 +22,24 @@
       </a>
     </div>
 
-    <!-- Search -->
-    <div class="search-bar">
-      <form th:action="@{/search}" method="get">
-        <input type="text" name="query" placeholder="Tìm kiếm đồ uống..." class="search-input">
-        <button type="submit" class="header-search-btn">
+   <!-- search -->
+    <div class="search-bar" style="position: relative;">
+      <!-- <form th:action="@{/search}" method="get"> -->
+        <input type="text" id="searchBox" name="query" placeholder="Tìm kiếm đồ uống..." class="search-input">
+        <button  class="header-search-btn">
           <img th:src="@{/images/search.png}" alt="search-icon" title="Tìm kiếm">
         </button>
-      </form>
+        <!-- Kết quả gợi ý -->
+        <ul id="searchResults" 
+            style="position: absolute; top: 100%; left: 0; right: 0; 
+                  background: #fff; border: 1px solid #ccc; 
+                  list-style: none; padding: 0; margin: 0; 
+                  max-height: 200px; overflow-y: auto; z-index: 1000;">
+        </ul>
+      <!-- </form> -->
     </div>
+
+    
 
     <!-- Actions -->
     <div class="header-actions">
@@ -161,5 +170,43 @@
       }
     });
   </script>
+  <script>
+    const searchBox = document.getElementById("searchBox");
+    const resultsList = document.getElementById("searchResults");
+
+    searchBox.addEventListener("input", async () => {
+        const query = searchBox.value.trim();
+        if (query.length < 2) { // chỉ search khi nhập >= 2 ký tự
+            resultsList.innerHTML = "";
+            return;
+        }
+
+        const res = await fetch(`/api/search?query=${encodeURIComponent(query)}`);
+        const products = await res.json();
+
+        resultsList.innerHTML = "";
+        if (products.length === 0) {
+            resultsList.innerHTML = "<li style='padding:5px;'>Không tìm thấy sản phẩm</li>";
+        } else {
+            products.forEach(p => {
+                const li = document.createElement("li");
+                li.style.padding = "5px";
+                li.innerHTML = `<a href="/user/showDetailProduct/${p.productId}" style="text-decoration:none; color:black; display:flex; align-items:center;">
+                                    <img src="/uploads/${p.imageUrl}" width="40" style="margin-right:10px;"> 
+                                    <span>${p.productName} - ${p.price} VNĐ</span>
+                                </a>`;
+                resultsList.appendChild(li);
+            });
+        }
+    });
+
+    // Ẩn gợi ý khi click ra ngoài
+    document.addEventListener("click", (e) => {
+        if (!document.querySelector(".search-bar").contains(e.target)) {
+            resultsList.innerHTML = "";
+        }
+    });
+  </script>
+
 </body>
 </html>

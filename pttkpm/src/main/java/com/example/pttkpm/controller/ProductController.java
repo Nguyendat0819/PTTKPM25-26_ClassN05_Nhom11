@@ -4,6 +4,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -71,5 +73,26 @@ public class ProductController {
         return "/user/showDetailProduct";
     }
 
-    
+    @GetMapping("/")
+    // tìm kiếm sản phẩm 
+    public String home(@RequestParam(value = "query", required = false) String query, Model model) {
+    List<Product> products;
+    if (query != null && !query.isEmpty()) {
+        products = productsService.searchProducts(query);
+        model.addAttribute("query", query);
+    } else {
+        products = productsService.getAllProducts(); // nếu không search thì load tất cả
+    }
+    model.addAttribute("products", products);
+    return "home";
+    }
+
+    // xử lý dữ liệu trong tìm kiếm 
+    @GetMapping("/api/search")
+    @ResponseBody
+    public List<Product> searchApi(@RequestParam("query") String query) {
+        return productsService.searchProducts(query);
+    }
+
+
 }
