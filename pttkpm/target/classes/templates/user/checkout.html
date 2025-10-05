@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thanh toán</title>
+</head>
+<body>
+<h2>Trang thanh toán</h2>
+
+<!-- =========================
+     THÔNG TIN NGƯỜI NHẬN HÀNG
+========================= -->
+<div>
+    <h3>Địa chỉ giao hàng</h3>
+
+    <form th:action="@{/user/checkout/saveAddress}" method="post">
+        <label>Địa chỉ nhà:</label><br>
+        <input type="text" name="homeAddress"
+               th:value="${userAddress != null ? userAddress.homeAddress : ''}"
+               placeholder="Nhập địa chỉ cụ thể" required><br><br>
+
+        <!-- Tỉnh -->
+        <label>Tỉnh / Thành phố:</label><br>
+        <select id="province" name="provinceId" required>
+            <option value="">-- Chọn Tỉnh/Thành --</option>
+            <option th:each="p : ${provinces}"
+                    th:value="${p.provinceId}"
+                    th:text="${p.name}"
+                    th:selected="${userAddress != null && userAddress.province.provinceId == p.provinceId}">
+            </option>
+        </select><br><br>
+
+        <!-- Quận -->
+        <label>Quận / Huyện:</label><br>
+        <select id="district" name="districtId" required>
+            <option value="">-- Chọn Quận/Huyện --</option>
+        </select><br><br>
+
+        <!-- Phường -->
+        <label>Phường / Xã:</label><br>
+        <select id="ward" name="wardId" required>
+            <option value="">-- Chọn Phường/Xã --</option>
+        </select><br><br>
+
+        <button type="submit">Cập nhật địa chỉ</button>
+    </form>
+</div>
+
+<hr/>
+
+<!-- =========================
+     DANH SÁCH SẢN PHẨM
+========================= -->
+<table border="1" cellpadding="6" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Sản phẩm</th>
+            <th>Giá</th>
+            <th>Số lượng</th>
+            <th>Thành tiền</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="detail : ${selectedDetails}">
+            <td th:text="${detail.productName}"></td>
+            <td th:text="${detail.productPrice}"></td>
+            <td th:text="${detail.quantity}"></td>
+            <td th:text="${detail.productPrice.multiply(T(java.math.BigDecimal).valueOf(detail.quantity.longValue()))}"></td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Tổng cộng: <span th:text="${total}"></span> VNĐ</h3>
+
+<!-- =========================
+     PHƯƠNG THỨC THANH TOÁN
+========================= -->
+<form th:action="@{/user/checkout/doCheckout}" method="post">
+    <h4>Chọn phương thức thanh toán:</h4>
+    <label><input type="radio" name="paymentMethod" value="CASH" checked/> Tiền mặt</label><br/>
+    <label><input type="radio" name="paymentMethod" value="MOMO"/> Ví MoMo</label><br/>
+    <label><input type="radio" name="paymentMethod" value="CARD"/> Thẻ ngân hàng</label><br/><br/>
+
+    <!-- Gửi lại danh sách sản phẩm đã chọn -->
+    <div th:each="detail : ${selectedDetails}">
+        <input type="hidden" name="selectedIds" th:value="${detail.orderDetailId}"/>
+    </div>
+
+    <button type="submit">Xác nhận thanh toán</button>
+</form>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Khi chọn Tỉnh/Thành phố
+            $('#province').change(function() {
+                var provinceId = $(this).val();
+                if (provinceId) {
+                    $.get('/api/districts?provinceId=' + provinceId, function(data) {
+                        console.log("Districts returned:", data); 
+                        var districtSelect = $('#district');
+                        districtSelect.empty().append('<option value="">-- Chọn Quận/Huyện --</option>');
+                        $('#ward').empty().append('<option value="">-- Chọn Phường/Xã --</option>');
+                        $.each(data, function(i, district) {
+                            districtSelect.append('<option value="' + district.districtId + '">' + district.name + '</option>');
+                        });
+                    });
+                }
+            });
+
+            // Khi chọn Quận/Huyện
+            $('#district').change(function() {
+                var districtId = $(this).val();
+                if (districtId) {
+                    $.get('/api/wards?districtId=' + districtId, function(data) {
+                        var wardSelect = $('#ward');
+                        wardSelect.empty().append('<option value="">-- Chọn Phường/Xã --</option>');
+                        $.each(data, function(i, ward) {
+                            wardSelect.append('<option value="' + ward.wardId + '">' + ward.name + '</option>');
+                        });
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

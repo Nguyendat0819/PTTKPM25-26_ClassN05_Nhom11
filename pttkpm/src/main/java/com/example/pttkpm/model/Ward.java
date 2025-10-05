@@ -1,5 +1,7 @@
 package com.example.pttkpm.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -17,6 +19,7 @@ public class Ward {
     //  quan hệ nhiều phường 1 quân
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "district_id")
+    @JsonBackReference
     private District district;
 
     public Ward(){}

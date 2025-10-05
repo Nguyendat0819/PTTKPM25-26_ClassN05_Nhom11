@@ -41,8 +41,8 @@ public class CartController {
     // Thêm sản phẩm vào giỏ
     @PostMapping("/cart")
     public String addToCart(@RequestParam("productId") Integer productId,
-                            @RequestParam("quantity") Integer quantity,
-                            HttpSession session) {
+            @RequestParam("quantity") Integer quantity,
+            HttpSession session) {
         User user = (User) session.getAttribute("loggedInUser");
         if (user == null) {
             return "redirect:/user/login";
@@ -61,29 +61,28 @@ public class CartController {
         // Lấy sản phẩm
         Product product = productService.getProductId(productId);
 
-         // ✅ Kiểm tra sản phẩm đã có trong giỏ chưa
-    List<OrderDetail> details = orderDetailRepository.findByOrderAndProduct(order, product);
-    if (!details.isEmpty()) {
-        OrderDetail existingDetail = details.get(0); // lấy dòng đầu tiên
-        existingDetail.setQuantity(existingDetail.getQuantity() + quantity);
-        orderDetailRepository.save(existingDetail);
+        // ✅ Kiểm tra sản phẩm đã có trong giỏ chưa
+        List<OrderDetail> details = orderDetailRepository.findByOrderAndProduct(order, product);
+        if (!details.isEmpty()) {
+            OrderDetail existingDetail = details.get(0); // lấy dòng đầu tiên
+            existingDetail.setQuantity(existingDetail.getQuantity() + quantity);
+            orderDetailRepository.save(existingDetail);
 
-        // Nếu muốn "dọn sạch" các dòng trùng lặp
-        if (details.size() > 1) {
-            for (int i = 1; i < details.size(); i++) {
-                orderDetailRepository.delete(details.get(i));
+            // Nếu muốn "dọn sạch" các dòng trùng lặp
+            if (details.size() > 1) {
+                for (int i = 1; i < details.size(); i++) {
+                    orderDetailRepository.delete(details.get(i));
+                }
             }
+        } else {
+            OrderDetail detail = new OrderDetail();
+            detail.setOrder(order);
+            detail.setProduct(product);
+            detail.setProductName(product.getProductName());
+            detail.setProductPrice(product.getPrice());
+            detail.setQuantity(quantity);
+            orderDetailRepository.save(detail);
         }
-    } else {
-        OrderDetail detail = new OrderDetail();
-        detail.setOrder(order);
-        detail.setProduct(product);
-        detail.setProductName(product.getProductName());
-        detail.setProductPrice(product.getPrice());
-        detail.setQuantity(quantity);
-        orderDetailRepository.save(detail);
-    }
-
 
         // ✅ chuyển tới trang giỏ hàng
         return "redirect:/user/cart";
@@ -103,7 +102,6 @@ public class CartController {
         model.addAttribute("order", order);
         return "user/cart"; // -> resources/templates/user/cart.html
     }
-
 
     // xử lý trăng giảm số lượng
     @PostMapping("/cart/increase")
@@ -127,6 +125,35 @@ public class CartController {
             orderDetailRepository.delete(detail);
         }
         return "redirect:/user/cart";
+    }
+
+    // xử thanh toán
+    @PostMapping("/cart/checkout")
+    public String checkout(@RequestParam(value = "selectedIds", required = false) List<Integer> selectedIds,
+            HttpSession session,
+            Model model) {
+        User user = (User) session.getAttribute("loggedInUser");
+        if (user == null) {
+            return "redirect:/user/login";
+        }
+
+        if (selectedIds == null || selectedIds.isEmpty()) {
+            model.addAttribute("message", "Bạn chưa chọn sản phẩm nào để thanh toán!");
+            return "redirect:/user/cart";
+        }
+
+        // Lấy danh sách OrderDetail đã chọn
+        List<OrderDetail> selectedDetails = orderDetailRepository.findAllById(selectedIds);
+
+        // ✅ Tính tổng tiền
+        BigDecimal total = selectedDetails.stream()
+                .map(d -> d.getProductPrice().multiply(BigDecimal.valueOf(d.getQuantity())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        model.addAttribute("selectedDetails", selectedDetails);
+        model.addAttribute("total", total);
+        
+        return "user/checkout"; // tạo checkout.html để hiển thị
     }
 
 }

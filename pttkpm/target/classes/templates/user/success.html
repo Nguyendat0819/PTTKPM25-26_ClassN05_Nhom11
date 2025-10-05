@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thanh toán thành công</title>
+</head>
+<body>
+<h2>Thanh toán thành công!</h2>
+
+<table border="1">
+    <tr>
+        <th>Sản phẩm</th>
+        <th>Giá</th>
+        <th>Số lượng</th>
+        <th>Thành tiền</th>
+    </tr>
+    <tr th:each="detail : ${selectedDetails}">
+        <td th:text="${detail.productName}"></td>
+        <td th:text="${detail.productPrice}"></td>
+        <td th:text="${detail.quantity}"></td>
+        <td th:text="${detail.productPrice.multiply(T(java.math.BigDecimal).valueOf(detail.quantity))}"></td>
+    </tr>
+</table>
+
+<h3>Tổng cộng: <span th:text="${total}"></span> VNĐ</h3>
+<p>Phương thức thanh toán: <span th:text="${paymentMethod}"></span></p>
+
+<a th:href="@{/user/cart}">Quay về giỏ hàng</a>
+
+<!-- ⚡ Thông báo JS -->
+<script th:if="${success}">
+    alert("Thanh toán thành công bằng [[${paymentMethod}]] với tổng số tiền: [[${total}]] VNĐ");
+</script>
+
+</body>
+</html>

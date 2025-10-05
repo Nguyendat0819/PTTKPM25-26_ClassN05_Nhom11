@@ -2,6 +2,8 @@ package com.example.pttkpm.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -16,6 +18,7 @@ public class Province {
     private String name;
 
     @OneToMany(mappedBy = "province", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<District> districts;
 
     // TẠO CONSTRUCTOR
