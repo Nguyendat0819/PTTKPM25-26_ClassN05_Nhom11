@@ -8,29 +8,32 @@
 <h2>Thanh toán thành công!</h2>
 
 <table border="1">
-    <tr>
-        <th>Sản phẩm</th>
-        <th>Giá</th>
-        <th>Số lượng</th>
-        <th>Thành tiền</th>
-    </tr>
-    <tr th:each="detail : ${selectedDetails}">
-        <td th:text="${detail.productName}"></td>
-        <td th:text="${detail.productPrice}"></td>
-        <td th:text="${detail.quantity}"></td>
-        <td th:text="${detail.productPrice.multiply(T(java.math.BigDecimal).valueOf(detail.quantity))}"></td>
-    </tr>
+    <thead>
+        <tr>
+            <th>Sản phẩm</th>
+            <th>Giá (VNĐ)</th>
+            <th>Số lượng</th>
+            <th>Thành tiền (VNĐ)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="detail : ${selectedDetails}">
+            <td th:text="${detail.productName}"></td>
+           <td th:text="${#numbers.formatDecimal(detail.productPrice.multiply(T(java.math.BigDecimal).valueOf(1000L)), 0, 'POINT', 0, 'COMMA')}"></td>
+            <td th:text="${detail.quantity}"></td>
+           <td th:text="${#numbers.formatDecimal(detail.productPrice.multiply(T(java.math.BigDecimal).valueOf(1000L)).multiply(new java.math.BigDecimal(detail.quantity)), 0, 'POINT', 0, 'COMMA')}"></td>
+        </tr>
+    </tbody>
 </table>
 
-<h3>Tổng cộng: <span th:text="${total}"></span> VNĐ</h3>
+<h3>Tổng cộng: <span th:text="${#numbers.formatDecimal(total.multiply(new java.math.BigDecimal(1000)), 0, 'COMMA', 0, 'POINT')}"></span> VNĐ</h3>
 <p>Phương thức thanh toán: <span th:text="${paymentMethod}"></span></p>
 
 <a th:href="@{/user/cart}">Quay về giỏ hàng</a>
 
 <!-- ⚡ Thông báo JS -->
-<script th:if="${success}">
+<script th:if="${paymentMethod}">
     alert("Thanh toán thành công bằng [[${paymentMethod}]] với tổng số tiền: [[${total}]] VNĐ");
 </script>
-
 </body>
 </html>

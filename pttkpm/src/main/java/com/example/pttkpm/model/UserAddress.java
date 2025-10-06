@@ -2,25 +2,23 @@ package com.example.pttkpm.model;
 
 import jakarta.persistence.*;
 
-
 @Entity
 @Table(name = "useraddress")
 public class UserAddress {
     @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     @Column(name = "userAddress_id")
     private Integer userAddressId;
 
-    @Column(name = "homeAddress",length = 255)
+    @Column(name = "homeAddress", length = 255)
     private String homeAddress;
 
-
-     // Quan hệ với User (1 user có 1 address)
+    // Quan hệ với User (1 user có 1 address)
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
-    
+
     // quan hệ với province
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "province_id")
@@ -31,14 +29,15 @@ public class UserAddress {
     @JoinColumn(name = "district_id")
     private District district;
 
-    //  quan hệ với wards
+    // quan hệ với wards
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ward_id")
     private Ward ward;
 
-    // constructor 
+    // constructor
 
-    public UserAddress(){}
+    public UserAddress() {
+    }
 
     public Integer getUserAddressId() {
         return userAddressId;
@@ -80,6 +79,12 @@ public class UserAddress {
         this.ward = ward;
     }
 
-    
-    
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 }
