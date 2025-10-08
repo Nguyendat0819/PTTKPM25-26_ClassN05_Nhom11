@@ -150,3 +150,121 @@ body {
   color: #222;
   font-weight: bold;
 }
+
+
+/* customer table */
+.admin-content {
+  max-width: 1000px;
+  margin: 40px auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.admin-content h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+  font-size: 26px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-family: "Segoe UI", sans-serif;
+}
+
+thead {
+  background: linear-gradient(90deg, #27ae60, #2ecc71);
+  color: #fff;
+}
+
+th, td {
+  padding: 14px 12px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+tbody tr:hover {
+  background-color: #f9f9f9;
+  transition: 0.3s;
+}
+
+a {
+  text-decoration: none;
+  color: #27ae60;
+  font-weight: 600;
+}
+
+a:hover {
+  color: #219150;
+}
+
+td a:nth-child(2) {
+  color: #e74c3c;
+}
+
+td a:nth-child(2):hover {
+  color: #c0392b;
+}
+
+.btn-view, .btn-delete {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 6px;
+    margin-right: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    color: white;
+}
+
+.btn-view { background-color: #30EA68; color: #333}   
+.btn-delete { background-color: #EA3030; }
+
+
+/* order-status table */
+.order-status h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+  font-size: 26px;
+}
+
+.order-status table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.order-status th, .order-status td {
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    text-align: center;
+}
+
+.status {
+    display: inline-block;    
+    padding: 6px 14px;        
+    border-radius: 6px;       
+    font-weight: bold;
+    text-align: center;
+    min-width: 90px;          
+}
+
+/* Màu theo trạng thái */
+.status.completed {
+    background-color: #30EA68;  
+    color: #000;           
+}
+
+.status.pending {
+    background-color: #EAFF05;  
+    color: #000;
+}
+
+.status.cancelled {
+    background-color: #EA3030;
+    color: #fff;
+}
+

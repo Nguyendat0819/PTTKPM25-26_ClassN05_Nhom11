@@ -55,6 +55,40 @@
     </p>
 </div>
 
+<div class="order-status">
+    <h1>Trạng thái đơn hàng</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Khách hàng</th>
+                <th>Email</th>
+                <th>Ngày đặt</th>
+                <th>Tổng tiền</th>
+                <th>Trạng thái</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <!-- dùng để css theo trạng thái đơn hàng
+                <td class="text-center"> 
+                    <span th:class="'status ' + (
+                        ${order.status} == 'Hoàn tất' ? 'completed' :
+                        (${order.status} == 'Đang xử lý' ? 'pending' : 'cancelled')
+                    )" th:text="${order.status}"></span>
+                </td> -->
+
+            </tr>
+        </tbody>
+    </table>
+</div>
+
 <script>
     const links = document.querySelectorAll(".header-action");
     const currentLink = window.location.pathname;
