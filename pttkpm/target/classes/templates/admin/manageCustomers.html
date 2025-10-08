@@ -7,51 +7,54 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@300;400;600&display=swap" rel="stylesheet">
-
-    <!-- CSS -->
     <link th:href="@{/css/admin.css}" rel="stylesheet">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
-        rel="stylesheet" 
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
-        crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+          crossorigin="anonymous">
+
+    <style>
+        .table td, .table th {
+            vertical-align: middle;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 <header class="header">
-    <!-- Logo -->
     <div class="logo-shop">
         <a th:href="@{/}">
             <img th:src="@{/images/logo-header.png}" alt="Diang Drink Logo" title="Trở về trang chủ">
         </a>
     </div>
 
-    <!-- Actions -->
     <div class="header-actions">
-            <a class="header-action" th:href="@{/admin/addProducts}" title="Thêm sản phẩm">
-                <img th:src="@{/images/add.png}" alt="add-icon" title="Thêm sản phẩm">
-                <div class="add">Thêm sản phẩm</div>
-            </a>
-            <a class="header-action" th:href="@{/admin/editProducts}" title="Quản lý sản phẩm" style="text-decoration: none; color: #333">
-                <img th:src="@{/images/edit.png}" alt="edit-icon" title="Chỉnh sửa sản phẩm">
-                <div class="edit">Quản lý sản phẩm</div>
-            </a>
-            <a th:href="@{/admin/manageCustomers}" class="header-action">
-                <img th:src="@{/images/relationship.png}" alt="relationship-icon" title="Quản lý khách hàng">
-                <span>Quản lý khách hàng</span>
-            </a>
-            <a th:href="@{/admin/orderStatus}" class="header-action">
-                <img th:src="@{/images/clipboard.png}" alt="status-icon" title="Xem đơn hàng">
-                <span>Trạng thái đơn hàng</span>
-            </a>
-            <a th:href="@{/admin/profit}" class="header-action">
-                <img th:src="@{/images/profit.png}" alt="profit-icon" title="Xem doanh số">
-                <span>Doanh số</span>
-            </a>
-            <a th:href="@{/logout}" class="header-action">
-                <img th:src="@{/images/logout.png}" alt="logout-icon" title="Đăng xuất">
-                <span>Đăng xuất</span>
-            </a>
-        </div>
+        <a class="header-action" th:href="@{/admin/addProducts}">
+            <img th:src="@{/images/add.png}" alt="add-icon">
+            <div class="add">Thêm sản phẩm</div>
+        </a>
+        <a class="header-action" th:href="@{/admin/editProducts}">
+            <img th:src="@{/images/edit.png}" alt="edit-icon">
+            <div class="edit">Quản lý sản phẩm</div>
+        </a>
+        <a th:href="@{/admin/manageCustomers}" class="header-action">
+            <img th:src="@{/images/relationship.png}" alt="relationship-icon">
+            <span>Quản lý khách hàng</span>
+        </a>
+        <a th:href="@{/admin/orderStatus}" class="header-action">
+            <img th:src="@{/images/clipboard.png}" alt="status-icon">
+            <span>Trạng thái đơn hàng</span>
+        </a>
+        <a th:href="@{/admin/profit}" class="header-action">
+            <img th:src="@{/images/profit.png}" alt="profit-icon">
+            <span>Doanh số</span>
+        </a>
+        <a th:href="@{/logout}" class="header-action">
+            <img th:src="@{/images/logout.png}" alt="logout-icon">
+            <span>Đăng xuất</span>
+        </a>
+    </div>
 </header>
 
 <div class="customer-reminder">
@@ -62,49 +65,120 @@
     </p>
 </div>
 
-<!-- Nội dung quản lý khách hàng -->
 <div class="admin-content">
     <div class="customer-table">
         <h1>Danh sách khách hàng</h1>
 
-    <table>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Tên khách hàng</th>
-            <th>Email</th>
-            <th>Số điện thoại</th>
-            <th>Thao tác</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="customer : ${customers}">
-            <td th:text="${customer.id}"></td>
-            <td th:text="${customer.name}"></td>
-            <td th:text="${customer.email}"></td>
-            <td th:text="${customer.phone}"></td>
-            <td>
-                <a th:href="@{'/admin/customers/' + ${customer.id}}">Xem</a> |
-                <a th:href="@{'/admin/customers/delete/' + ${customer.id}}" onclick="return confirm('Xóa khách hàng này?')">Xóa</a>
-            </td>
-        </tr>
-    </table>
+        <table id="myTable" >
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tên khách hàng</th>
+                <th>Email</th>
+                <th>Số điện thoại</th>
+                <th>Thao tác</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="customer : ${customers}">
+                <td th:text="${customer.id}"></td>
+                <td th:text="${customer.name}"></td>
+                <td th:text="${customer.email}"></td>
+                <td th:text="${customer.phone}"></td>
+                <td>
+                    <a th:href="@{'/admin/customers/' + ${customer.id}}">Xem</a> |
+                    <a th:href="@{'/admin/customers/delete/' + ${customer.id}}" onclick="return confirm('Xóa khách hàng này?')">Xóa</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <nav>
+            <ul class="pagination justify-content-center" id="pagination"></ul>
+        </nav>
     </div>
 </div>
 
 <script>
-    const links = document.querySelectorAll(".header-action");
-    const currentLink = window.location.pathname;
+document.addEventListener("DOMContentLoaded", function() {
+    const rowsPerPage = 10;
+    const table = document.getElementById("myTable");
+    const rows = table.querySelectorAll("tbody tr");
+    const pagination = document.getElementById("pagination");
+    const totalPages = Math.ceil(rows.length / rowsPerPage);
 
-    links.forEach(link => {
-        if (link.getAttribute("href") === currentLink) {
-            link.classList.add("active");
+    function showPage(page) {
+        rows.forEach((row, index) => {
+            row.style.display =
+                index >= (page - 1) * rowsPerPage && index < page * rowsPerPage
+                    ? ""
+                    : "none";
+        });
+
+        document.querySelectorAll(".page-item").forEach(item =>
+            item.classList.remove("active")
+        );
+        const current = document.querySelector(`.page-item[data-page="${page}"]`);
+        if (current) current.classList.add("active");
+    }
+
+    function setupPagination() {
+        pagination.innerHTML = "";
+        const prev = document.createElement("li");
+        prev.className = "page-item disabled";
+        prev.innerHTML = `<a class="page-link" href="#">Trước</a>`;
+        pagination.appendChild(prev);
+
+        for (let i = 1; i <= totalPages; i++) {
+            const li = document.createElement("li");
+            li.className = "page-item";
+            li.dataset.page = i;
+            li.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+            li.addEventListener("click", () => {
+                showPage(i);
+                updateButtons(i);
+            });
+            pagination.appendChild(li);
         }
-    });
+
+        const next = document.createElement("li");
+        next.className = "page-item";
+        next.innerHTML = `<a class="page-link" href="#">Sau</a>`;
+        pagination.appendChild(next);
+    }
+
+    function updateButtons(page) {
+        const prev = pagination.children[0];
+        const next = pagination.children[pagination.children.length - 1];
+
+        prev.classList.toggle("disabled", page === 1);
+        next.classList.toggle("disabled", page === totalPages);
+
+        prev.onclick = () => {
+            if (page > 1) {
+                showPage(page - 1);
+                updateButtons(page - 1);
+            }
+        };
+
+        next.onclick = () => {
+            if (page < totalPages) {
+                showPage(page + 1);
+                updateButtons(page + 1);
+            }
+        };
+    }
+
+    if (rows.length > 0) {
+        setupPagination();
+        showPage(1);
+        updateButtons(1);
+    }
+});
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
-          integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
-          crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslk1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 </body>
 </html>

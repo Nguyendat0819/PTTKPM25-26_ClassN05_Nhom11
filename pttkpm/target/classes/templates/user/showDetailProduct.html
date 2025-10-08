@@ -1,34 +1,199 @@
 <!DOCTYPE html>
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi tiết sản phẩm</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" th:href="@{/css/home.css}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
-    <div id="detailProduct">
-        <div >
-            <img th:src="@{'/uploads/' + ${product.imageUrl}}" alt="">
-        </div>
-        <div>
-            <span th:text="${product.productName}"></span>
-        </div>
-        <div>
-            <span th:text="${product.category}"></span>
-        </div>
-        <div>
-            <span th:text="${product.status}"></span>
-        </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="logo-shop">
+      <a th:href="@{/home}" id="logo-link">
+        <img th:src="@{/images/logo-header.png}" alt="Diang Drink Logo" title="Trở về trang chủ">
+      </a>
     </div>
-    <div>
-        <form th:action="@{/user/cart}" method="post">
-            <input type="hidden" name="productId" th:value="${product.productId}" />
-            <input type="number" name="quantity" value="1" min="1" />
-            <button type="submit">Thêm vào giỏ hàng</button>
-        </form>
-        <div>
-            <button id="buyProduct">Mua ngay</button>
-        </div>
+
+    <!-- search -->
+    <div class="search-bar" style="position: relative;">
+      <input type="text" id="searchBox" name="query" placeholder="Tìm kiếm đồ uống..." class="search-input">
+      <button class="header-search-btn">
+        <img th:src="@{/images/search.png}" alt="search-icon" title="Tìm kiếm">
+      </button>
+      <ul id="searchResults" 
+          style="position: absolute; top: 100%; left: 0; right: 0; 
+                background: #fff; border: 1px solid #ccc; 
+                list-style: none; padding: 0; margin: 0; 
+                max-height: 200px; overflow-y: auto; z-index: 1000;">
+      </ul>
     </div>
-    
+
+    <!-- Actions -->
+    <div class="header-actions">
+      <a class="header-action" href="tel:1234.5678" title="Nhấn để gọi" style="text-decoration: none; color: white;">
+        <img th:src="@{/images/phone.png}" alt="phone-icon" title="Gọi ngay"> 
+        <div class="contact">0909 999 999</div>
+      </a>
+      <a th:href="@{/cart}" class="header-action">
+        <img th:src="@{/images/shopping-cart-empty-side-view.png}" alt="cart-icon" title="Xem giỏ hàng">
+        <span>Giỏ hàng</span>
+      </a>
+      <a th:href="@{/login}" class="header-action">
+        <img th:src="@{/images/user.png}" alt="user-icon" title="Xem tài khoản">
+        <span>Tài khoản</span>
+      </a>
+    </div>
+  </header>
+
+ <!-- Product Detail -->
+<div class="container my-5" id="detailProduct">
+  <div class="row align-items-start g-4 shadow-sm p-4 bg-white rounded-4">
+
+    <!-- Ảnh sản phẩm -->
+    <div class="col-md-5 text-center">
+      <img th:src="@{'/uploads/' + ${product.imageUrl}}"
+           alt="Ảnh sản phẩm"
+           class="img-fluid rounded border shadow-sm"
+           style="max-height: 320px; object-fit: cover;">
+    </div>
+
+    <!-- Thông tin sản phẩm -->
+    <div class="col-md-7">
+      <h3 class="fw-bold mb-3" th:text="${product.productName}">Tên sản phẩm</h3>
+
+      <p class="text-muted mb-1">
+        Danh mục: <span th:text="${product.category}">Trà sữa</span>
+      </p>
+
+      <p class="text-muted mb-3">
+        Tình trạng: 
+        <span th:text="${product.status == 'available' ? 'Còn hàng' : 'Hết hàng'}">Còn hàng</span>
+      </p>
+
+      <!-- Size: chỉ hiển thị text -->
+      <div class="mb-3">
+        <strong>Size:</strong>
+        <span class="ms-2" th:text="${product.size}">S, M, L</span>
+      </div>
+
+      <!-- Giá -->
+      <h5 class="text-success fw-semibold mb-4">
+        Giá: 
+        <span th:text="${#numbers.formatDecimal(product.price, 0, 'POINT', '.', ' VND')}">
+          135.000 VND
+        </span>
+      </h5>
+
+      <!-- Mô tả sản phẩm -->
+      <p class="mb-4" th:text="${product.description}">
+        Mô tả chi tiết sản phẩm...
+      </p>
+
+      <!-- Form thêm giỏ hàng -->
+      <form th:action="@{/user/cart}" method="post" class="d-flex align-items-center mb-3">
+        <input type="hidden" name="productId" th:value="${product.productId}" />
+        <label for="quantity" class="me-2 fw-medium">Số lượng:</label>
+        <input type="number" id="quantity" name="quantity" value="1" min="1"
+               class="form-control w-auto me-3" style="max-width: 100px;">
+        <button type="submit" class="btn btn-outline-success px-4">
+           Thêm vào giỏ hàng
+        </button>
+      </form>
+
+      <!-- Nút mua ngay -->
+      <button id="buyProduct" class="btn btn-success px-4 py-2 fw-semibold">
+       Mua ngay
+      </button>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="logo-footer">
+        <a th:href="@{#}">
+          <img th:src="@{/images/logo-header.png}" alt="logo-footer" title="Diang Drink">
+        </a>
+      </div>
+      <div class="about-diang">
+        <h3>Về Diang Drink</h3>
+        <p>Diang Drink cam kết mang đến cho bạn những trải nghiệm đồ uống tuyệt vời nhất với nguyên liệu tươi ngon và công thức độc đáo.</p>
+        <a href="#">Nguồn gốc</a>
+        <a href="#">Dịch vụ</a>
+        <a href="#">Tuyển dụng</a>
+        <a href="#">Liên hệ</a>
+      </div>
+      <div class="customer-support">
+        <h3>Hỗ trợ khách hàng</h3>
+        <a href="#">Chính sách đổi trả</a>
+        <a href="#">Chính sách bảo mật</a>
+        <a href="#">Điều khoản dịch vụ</a>
+        <a href="#">Câu hỏi thường gặp</a>
+      </div>
+      <div class="system-store">
+        <h3>Hệ thống cửa hàng</h3>
+        <p>Hà Nội: 123 Đường A, Quận B</p>
+        <p>Hồ Chí Minh: 456 Đường C, Quận D</p>
+        <p>Đà Nẵng: 789 Đường E, Quận F</p>
+        <p>Liên hệ: 0909 999 999</p>
+      </div>
+      <div class="follow-us">
+        <h3>Theo dõi chúng tôi:</h3>
+        <a href="#" class="social-media-icons"><img th:src="@{/images/tiktok.png}" alt="tiktok-icon"></a>
+        <a href="#" class="social-media-icons"><img th:src="@{/images/instagram.png}" alt="instagram-icon"></a>
+        <a href="#" class="social-media-icons"><img th:src="@{/images/facebook.png}" alt="facebook-icon"></a>
+        <a href="#" class="social-media-icons"><img th:src="@{/images/youtube.png}" alt="youtube-icon"></a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const searchBox = document.getElementById("searchBox");
+    const resultsList = document.getElementById("searchResults");
+
+    searchBox.addEventListener("input", async () => {
+      const query = searchBox.value.trim();
+      if (query.length < 2) {
+        resultsList.innerHTML = "";
+        return;
+      }
+      const res = await fetch(`/api/search?query=${encodeURIComponent(query)}`);
+      const products = await res.json();
+      resultsList.innerHTML = "";
+      if (products.length === 0) {
+        resultsList.innerHTML = "<li style='padding:5px;'>Không tìm thấy sản phẩm</li>";
+      } else {
+        products.forEach(p => {
+          const li = document.createElement("li");
+          li.style.padding = "5px";
+          li.innerHTML = `<a href="/user/showDetailProduct/${p.productId}" style="text-decoration:none; color:black; display:flex; align-items:center;">
+                            <img src="/uploads/${p.imageUrl}" width="40" style="margin-right:10px;"> 
+                            <span>${p.productName} - ${p.price} VNĐ</span>
+                          </a>`;
+          resultsList.appendChild(li);
+        });
+      }
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!document.querySelector(".search-bar").contains(e.target)) {
+        resultsList.innerHTML = "";
+      }
+    });
+  </script>
+
 </body>
 </html>

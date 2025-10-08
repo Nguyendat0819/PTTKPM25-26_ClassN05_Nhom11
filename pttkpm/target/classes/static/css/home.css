@@ -21,6 +21,12 @@ body {
   background-position: center;
 }
 
+.search-bar {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
 .search-bar form {
   display: flex;
   align-items: center;
@@ -40,13 +46,17 @@ body {
 }
 
 .header-search-btn {
+  position: absolute;
   border: none;
   background: transparent;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  left: 162px;
 }
+
+
 
 .header-search-btn img {
   width: 20px; 

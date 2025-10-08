@@ -268,3 +268,31 @@ td a:nth-child(2):hover {
     color: #fff;
 }
 
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    font-family: 'Zalando Sans Expanded', sans-serif;
+}
+
+.pagination .page-link,
+.pagination .current-page {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+
+.pagination .page-link:hover {
+    background-color: #f0f0f0;
+}
+
+.pagination .current-page {
+    background-color: #333;
+    color: white;
+    font-weight: 600;
+}
