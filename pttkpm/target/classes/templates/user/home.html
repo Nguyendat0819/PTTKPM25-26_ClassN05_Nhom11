@@ -83,8 +83,6 @@
       <div class="drinks">
         <h2 style="margin-top: 0px; font-size: 20px; font-family: Arial, sans-serif;">Thức uống</h2>
         <div class="drink-list">
-          <div class="container">
-            <div class="container_list">
               <div class="wrapper_column">
                 <div th:each="product: ${productList}" class="squard">
                     <a th:href="@{/user/showDetailProduct/{id}(id = ${product.productId})}">
@@ -93,7 +91,7 @@
                       </div>
                       <div class="squard_items">
                         <div class="squard_items_name">
-                          <span th:text="${product.productName}"></span>
+                          <span th:text="${product.productName}"style="text-decoration:none;"></span>
                         </div>
                         <div class="squard_items_price">
                           <span th:text="${product.price}"></span>
@@ -101,12 +99,28 @@
                       </div>
                     </a>
                 </div>
-              </div>
-            </div>
-          </div>
+              </div>  
         </div>
       </div>
     </div>
+
+    <!-- Pagination -->
+<!-- <div class="pagination">
+  <ul>
+    <li th:if="${currentPage > 0}">
+      <a th:href="@{/user/home(page=${currentPage - 1})}">&laquo;</a>
+    </li>
+
+    <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+        th:classappend="${i == currentPage} ? 'active'">
+      <a th:href="@{/user/home(page=${i})}" th:text="${i + 1}"></a>
+    </li>
+
+    <li th:if="${currentPage < totalPages - 1}">
+      <a th:href="@{/user/home(page=${currentPage + 1})}">&raquo;</a>
+    </li>
+  </ul>
+</div> -->
   </div>
 
   <!-- Footer -->

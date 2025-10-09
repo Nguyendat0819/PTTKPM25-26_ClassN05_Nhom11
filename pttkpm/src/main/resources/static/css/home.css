@@ -199,25 +199,8 @@ body {
   background: #f6f5f5;
   color:#333;
 }
-
-.right-content {
-  margin-top: 20px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-
-.drinks {
-  background: #f6f5f5;
-  border-radius: 12px;
-  border: 1px solid #ddd;
-  padding: 15px;
-  flex: 1;
-}
-
 .footer {
+  position: re;
   width: 100%;
   padding: 40px 0px;
   background-image: linear-gradient(to right, #6FED53, #14F571, #84ED53);
@@ -285,55 +268,52 @@ body {
   transform: scale(1.2);
 }
 
-
-hien thi sp
-.container{
-    max-width: 1600px;
-    margin: auto;
-    padding: 0 50px;
-}
-.container_list{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f5f5f5;
-}
-.wrapper_column{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    width: 100%;
-
-}
-.squard{
-    
-    align-content: flex-start;
-    display: flex;
-    flex-wrap: wrap;
-    padding-top: .3125rem;
+/* hien thi sp */
+.right-content {
+  margin-top: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.squard_img img{
-    width: 217px;
-    height: auto;
-    object-fit: cover;
-    margin-bottom: 30px;
+.drinks {
+  background: #f6f5f5;  
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  padding: 15px;
+  flex: 1;
 }
-.squard_items{
-    display: inline;
-    color: black;
-    margin-bottom: 15px;
+
+/* Sử dụng grid để chia đều 5 cột */
+.wrapper_column {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 5 cột mỗi hàng */
+  gap: 20px; /* khoảng cách giữa các ô */
 }
-.squard_items_name span{
-    font-size: 20px;
-    font-weight: 500;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-   
+
+.squard {
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  transition: 0.3s;
+  box-sizing: border-box;
 }
-.squard_items_price span{
-    display: flex;
-    justify-content: center;
-    text-align: center;
+
+.squard:hover {
+  transform: scale(1.05);
+}
+
+.squard_img img {
+  width: 100%;
+  height: 160px;
+  object-fit: contain;
+}
+
+.squard a{
+  text-decoration: none;
+  line-height: 1.6;
+  font-weight: bold;
+  color: #333;
 }
