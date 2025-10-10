@@ -39,6 +39,9 @@ public class CheckoutController {
     @Autowired
     private OrderDetailRepository orderDetailRepository;
 
+    @Autowired
+    private UserReponsitory userRepository;
+
     // Hiển thị trang thanh toán
     @PostMapping("/checkout")
     public String checkout(@RequestParam(value = "selectedIds", required = false) List<Integer> selectedIds,
@@ -112,6 +115,11 @@ public class CheckoutController {
         userAddress.setDistrict(district);
         userAddress.setWard(ward);
         userAddressRepository.save(userAddress);
+        // Gán địa chỉ cho user
+        user.setUserAddress(userAddress);
+
+        // Lưu user để cập nhật cột user.userAddress_id
+        userRepository.save(user);
 
         // Tính tổng
         BigDecimal totalAmount = selectedDetails.stream()

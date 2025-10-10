@@ -76,18 +76,28 @@
                 <th>Tên khách hàng</th>
                 <th>Email</th>
                 <th>Số điện thoại</th>
-                <th>Thao tác</th>
+                <th>Địa chỉ</th>
+                <!-- <th>Thao tác</th> -->
             </tr>
             </thead>
             <tbody>
-            <tr th:each="customer : ${customers}">
-                <td th:text="${customer.id}"></td>
-                <td th:text="${customer.name}"></td>
-                <td th:text="${customer.email}"></td>
-                <td th:text="${customer.phone}"></td>
+            <tr th:each="users : ${users}">
+                <td th:text="${users.userId}"></td>
+                <td th:text="${users.name}"></td>
+                <td th:text="${users.email}"></td>
+                <td th:text="${users.phone}"></td>
                 <td>
-                    <a th:href="@{'/admin/customers/' + ${customer.id}}">Xem</a> |
-                    <a th:href="@{'/admin/customers/delete/' + ${customer.id}}" onclick="return confirm('Xóa khách hàng này?')">Xóa</a>
+                    <span th:if="${users.userAddress != null}"
+                    th:text="${users.userAddress.homeAddress + ', ' 
+                            + users.userAddress.ward.name + ', '
+                            + users.userAddress.district.name + ', '
+                            + users.userAddress.province.name}">
+                    </span>
+                    <span th:if="${users.userAddress == null}">Chưa có địa chỉ</span>
+                </td>
+                <td>
+                    <!-- <a th:href="@{'/admin/customers/' + ${customer.id}}">Xem</a> |
+                    <a th:href="@{'/admin/customers/delete/' + ${customer.id}}" onclick="return confirm('Xóa khách hàng này?')">Xóa</a> -->
                 </td>
             </tr>
             </tbody>
@@ -101,7 +111,7 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    const rowsPerPage = 10;
+    const rowsPerPage = 3;
     const table = document.getElementById("myTable");
     const rows = table.querySelectorAll("tbody tr");
     const pagination = document.getElementById("pagination");

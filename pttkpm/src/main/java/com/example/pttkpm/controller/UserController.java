@@ -1,5 +1,7 @@
 package com.example.pttkpm.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -58,6 +60,13 @@ public class UserController {
         }
     }
 
+    @GetMapping("/user/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/user/login";
+    }
+
+
     @GetMapping("/profile")
     public String profile(@AuthenticationPrincipal org.springframework.security.core.userdetails.User user, 
                         Model model) {
@@ -66,6 +75,11 @@ public class UserController {
     }
 
 
-    
+    // @GetMapping("/admin/manageCustomers")
+    // public String manageCustomersView(Model model){
+    //     List<User> users = userService.getAllUsers();
+    //     model.addAttribute("users", users);
+    //     return "admin/manageCustomers";
+    // }
 
 }

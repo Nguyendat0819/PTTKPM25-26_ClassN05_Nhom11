@@ -13,4 +13,7 @@ public interface UserReponsitory extends JpaRepository<User, Integer> {
     User findByEmail(String email);
 
     User findByName(String name);
+
+
+    List<User> findByUserId(Integer userId);
 }

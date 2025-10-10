@@ -47,14 +47,31 @@
         <img th:src="@{/images/phone.png}" alt="phone-icon" title="Gọi ngay"> 
         <div class="contact">0909 999 999</div>
       </a>
-      <a th:href="@{/cart}" class="header-action">
+      <a th:href="@{/user/cart}" class="header-action">
         <img th:src="@{/images/shopping-cart-empty-side-view.png}" alt="cart-icon" title="Xem giỏ hàng">
         <span>Giỏ hàng</span>
+        <span th:if="${cartCount > 0}" class="cart-badge" 
+              th:text="${cartCount}" 
+              style="background:red;color:white;border-radius:50%;padding:2px 6px;margin-left:4px;"></span>
       </a>
-      <a th:href="@{/login}" class="header-action">
+
+      <!-- <a th:href="@{/user/login}" class="header-action">
         <img th:src="@{/images/user.png}" alt="user-icon" title="Xem tài khoản">
         <span>Tài khoản</span>
+      </a> -->
+
+      <!-- Nếu chưa đăng nhập -->
+      <a th:if="${session.loggedInUser == null}" th:href="@{/user/login}" class="header-action">
+        <img th:src="@{/images/user.png}" alt="user-icon">
+        <span>Đăng nhập</span>
       </a>
+
+      <!-- Nếu đã đăng nhập -->
+      <div th:if="${session.loggedInUser != null}" class="header-action">
+        <img th:src="@{/images/user.png}" alt="user-icon">
+        <span th:text="${session.loggedInUser.name}">Tên người dùng</span>
+        <a th:href="@{/user/logout}" class="logout-link">Đăng xuất</a>
+      </div>
     </div>
   </header>
 
