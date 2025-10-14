@@ -73,12 +73,12 @@
       <h3 class="fw-bold mb-3" th:text="${product.productName}">Tên sản phẩm</h3>
 
       <p class="text-muted mb-1">
-        Danh mục: <span th:text="${product.category}">Trà sữa</span>
+        Danh mục: <span th:text="${product.category}"></span>
       </p>
 
       <p class="text-muted mb-3">
         Tình trạng: 
-        <span th:text="${product.status == 'AVAILABLE' ? 'Còn hàng' : 'Hết hàng'}">Còn hàng</span>
+        <span th:text="${product.status}"></span>
       </p>
 
       <!-- Size: chỉ hiển thị text -->

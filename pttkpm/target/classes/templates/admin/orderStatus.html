@@ -58,31 +58,22 @@
 <div class="order-status">
     <h1>Trạng thái đơn hàng</h1>
     <table>
-       <!-- <thead>
-            <tr>
-                <th>ID</th>
-                <th>Tên khách hàng</th>
-                <th>Email</th>
-                <th>Ngày đặt</th>
-                <th>Tổng tiền (VNĐ)</th>
-                <th>Trạng thái</th>
-                <th>Địa chỉ</th>
-            </tr>
+       <thead>
+                <tr>
+                    <th>Mã đơn hàng</th>
+                    <th>Khách hàng</th>
+                    <th>Tổng tiền (VNĐ)</th>
+                    <th>Trạng thái</th>
+                </tr>
         </thead>
         <tbody>
-            <tr th:each="order : ${orders}">
-                <td th:text="${order.orderId}"></td>
-                <td th:text="${order.user != null ? order.user.name : '---'}"></td>
-                <td th:text="${order.user != null ? order.user.email : '---'}"></td>
-                <td th:text="${#dates.format(order.createdAt, 'dd/MM/yyyy')}"></td>
-                <td th:text="${#numbers.formatDecimal(order.total_amount, 0, 'COMMA', 0, 'POINT')}"></td>
-                <td th:text="${order.status}"></td>
-                <td th:text="${order.user != null && order.user.userAddress != null 
-                            ? order.user.userAddress.homeAddress 
-                            : 'Chưa có địa chỉ'}"></td>
-            </tr>
-        </tbody> -->
-
+                <tr th:each="order : ${orders}">
+                    <td th:text="${order.orderId}"></td>
+                    <td th:text="${order.user.name}"></td>
+                    <td th:text="${#numbers.formatDecimal(order.total_amount, 0, 'COMMA', 0, 'POINT')}"></td>
+                    <td th:text="${order.status}" th:class="'status ' + ${order.status}"></td>
+                </tr>
+        </tbody>
     </table>
 </div>
 

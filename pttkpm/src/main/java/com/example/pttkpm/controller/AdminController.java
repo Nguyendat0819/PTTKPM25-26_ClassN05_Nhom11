@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.pttkpm.model.Product;
 import com.example.pttkpm.model.User;
 import com.example.pttkpm.model.Order;
+import com.example.pttkpm.model.PaymentMethod;
 import com.example.pttkpm.reponsitory.OrderRepository;
 import com.example.pttkpm.service.ProductsService;
 import com.example.pttkpm.service.UserService;
@@ -57,7 +58,7 @@ public class AdminController {
 
     @GetMapping("/admin/orderStatus")
     public String orderStatusView( Model model) {
-        List<Order> orders = orderRepository.findAll(); // Lấy tất cả đơn hàng
+        List<Order> orders = orderRepository.findAllOrdersOnly(); // Lấy tất cả đơn hàng
         model.addAttribute("orders", orders); 
         return "admin/orderStatus";
     }
