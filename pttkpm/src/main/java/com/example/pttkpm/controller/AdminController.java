@@ -63,8 +63,8 @@ public class AdminController {
         return "admin/orderStatus";
     }
 
-    @GetMapping("/admin/profit")
-    public String profitView() {
-        return "admin/profit";
-    }
+    // @GetMapping("/admin/profit")
+    // public String profitView() {
+    //     return "admin/profit";
+    // }
 }

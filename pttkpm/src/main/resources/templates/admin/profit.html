@@ -4,22 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doanh số</title>
+
+    <!-- Font + CSS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@300;400;600&display=swap" rel="stylesheet">
-    <!-- CSS trong static -->
     <link rel="stylesheet" th:href="@{/css/admin.css}">
+
+    <!-- Thư viện Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body { font-family: "Zalando Sans Expanded", sans-serif; background-color: #f8fafc; }
+        .container { max-width: 1000px; margin: 40px auto; background: white; border-radius: 20px;
+                     box-shadow: 0 4px 25px rgba(0,0,0,0.1); padding: 40px; }
+        h2 { text-align: center; color: #333; margin-bottom: 40px; text-transform: uppercase; letter-spacing: 1px; }
+        .summary { display: flex; justify-content: space-around; margin-bottom: 50px; }
+        .summary-item { background-color: #e3f2fd; padding: 25px; border-radius: 15px; text-align: center;
+                        flex: 1; margin: 0 15px; transition: 0.3s ease; }
+        .summary-item:hover { transform: translateY(-5px); background-color: #d0ebff; }
+        .summary-item h3 { color: #1565c0; margin-bottom: 10px; }
+        .summary-item p { font-size: 20px; font-weight: 600; color: #333; }
+        canvas { width: 100%; max-height: 400px; margin-top: 30px; }
+        .chart-container { margin-top: 50px; }
+    </style>
 </head>
+
 <body>
 <header class="header">
-    <!-- Logo -->
-    <div class="logo-shop">
-        <a th:href="@{/user/home}">
-            <img th:src="@{/images/logo-header.png}" alt="Diang Drink Logo" title="Trở về trang chủ">
-        </a>
-    </div>
-    <!-- Actions -->
-    <div class="header-actions">
+        <!-- Logo -->
+        <div class="logo-shop">
+            <a th:href="@{/}">
+                <img th:src="@{/images/logo-header.png}" alt="Diang Drink Logo" title="Trở về trang chủ">
+            </a>
+        </div>
+
+        <!-- Actions -->
+        <div class="header-actions">
             <a class="header-action" th:href="@{/admin/addProducts}" title="Thêm sản phẩm">
                 <img th:src="@{/images/add.png}" alt="add-icon" title="Thêm sản phẩm">
                 <div class="add">Thêm sản phẩm</div>
@@ -45,25 +66,82 @@
                 <span>Đăng xuất</span>
             </a>
         </div>
-</header>
+    </header>
 
-<div class="customer-reminder">
-    <h3>Ghi nhớ:</h3>
-    <p>
-      Mọi quyết định của chúng ta cần đặt <strong>khách hàng</strong> lên hàng đầu.  
-      Hãy phục vụ tận tâm, phản hồi nhanh chóng và tạo trải nghiệm tốt nhất cho họ.  
-    </p>
+<div class="container">
+    <h2>THỐNG KÊ DOANH SỐ</h2>
+
+    <div class="summary">
+        <div class="summary-item">
+            <h3>Tổng doanh thu</h3>
+            <p th:text="${totalRevenue} + ' VNĐ'"></p>
+        </div>
+        <div class="summary-item">
+            <h3>Tổng số đơn hàng</h3>
+            <p th:text="${totalOrders}"></p>
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <h3 style="text-align:center; color:#444;">Doanh thu theo phương thức thanh toán</h3>
+        <canvas id="revenueChart"></canvas>
+    </div>
 </div>
 
-<script>
-    const links = document.querySelectorAll(".header-action");
-    const currentLink = window.location.pathname;
+<!-- Biểu đồ -->
+<script th:inline="javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+        const revenueData = /*[[${revenueByMethodJson}]]*/ {};
 
-    links.forEach(link => {
-        if (link.getAttribute("href") === currentLink) {
-            link.classList.add("active");
-        }
+        console.log("Dữ liệu biểu đồ:", revenueData);
+
+        const labels = Object.keys(revenueData);
+        const data = Object.values(revenueData);
+
+        const ctx = document.getElementById('revenueChart');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Doanh thu (VNĐ)',
+                    data: data,
+                    borderWidth: 1,
+                    backgroundColor: ['#42a5f5', '#66bb6a', '#ffca28']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true,
+                        position: 'bottom', // vị trí: 'top' | 'bottom' | 'left' | 'right'
+                    labels: {
+                        color: '#333',
+                        font: { size: 14, weight: '600' },
+                        usePointStyle: true, // hình tròn nhỏ thay vì vuông
+                        pointStyle: 'circle',
+                        padding: 20
+                    }
+                },
+                    title: { display: true, 
+                        text: 'Doanh thu theo phương thức thanh toán' ,
+                        color: '#1565c0',
+                        font: { size: 18, weight: 'bold' }
+
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: value => value.toLocaleString("vi-VN") + " đ"
+                        }
+                    }
+                }
+            }
+        });
     });
 </script>
+
 </body>
 </html>
