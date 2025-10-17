@@ -21,7 +21,7 @@
 
   <!-- Nếu có đơn hàng -->
   <div th:if="${order != null}">
-    <form th:action="@{/user/checkout}" method="post">
+    <form th:action="@{/user/checkout}" method="post" style="height: 305px;">
       <div class="card shadow-sm">
         <div class="card-body">
           <div class="table-responsive">
@@ -42,7 +42,7 @@
                            th:value="${detail.orderDetailId}">
                   </td>
                   <td th:text="${detail.productName}"></td>
-                  <td th:text="${#numbers.formatDecimal(detail.productPrice, 0, 'POINT', 0, 'COMMA')} + ' ₫'"></td>
+                  <td th:text="${#numbers.formatDecimal(detail.productPrice * 1000, 0, 'POINT', 0, 'COMMA')} + ' ₫'"></td>
                   <td class="text-center" th:text="${detail.quantity}"></td>
                   <td class="text-center">
                     <div class="btn-group">

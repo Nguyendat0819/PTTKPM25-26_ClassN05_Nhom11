@@ -71,7 +71,7 @@
                     <td th:text="${order.orderId}"></td>
                     <td th:text="${order.user.name}"></td>
                     <td th:text="${#numbers.formatDecimal(order.total_amount, 0, 'COMMA', 0, 'POINT')}"></td>
-                    <td th:text="${order.status}" th:class="'status ' + ${order.status}"></td>
+                    <td th:text="${order.status}" th:class="'status ' + ${order.status}" style="width: 92%; border-radius: 0%;"></td>
                 </tr>
         </tbody>
     </table>

@@ -17,7 +17,7 @@
   <header class="header">
     <!-- Logo -->
     <div class="logo-shop">
-      <a th:href="@{/home}" id="logo-link">
+      <a th:href="@{/user/home}" id="logo-link">
         <img th:src="@{/images/logo-header.png}" alt="Diang Drink Logo" title="Trở về trang chủ">
       </a>
     </div>
@@ -25,14 +25,14 @@
    <!-- search -->
     <div class="search-bar" style="position: relative;">
       <!-- <form th:action="@{/search}" method="get"> -->
-        <input type="text" id="searchBox" name="query" placeholder="Tìm kiếm đồ uống..." class="search-input">
-        <button  class="header-search-btn">
+        <input type="text" id="searchBox" name="query" placeholder="Tìm kiếm đồ uống..." class="search-input" style="width: 300px;">
+        <!-- <button  class="header-search-btn">
           <img th:src="@{/images/search.png}" alt="search-icon" title="Tìm kiếm">
-        </button>
+        </button> -->
         <!-- Kết quả gợi ý -->
         <ul id="searchResults" 
-            style="position: absolute; top: 100%; left: 0; right: 0; 
-                  background: #fff; border: 1px solid #ccc; 
+            style="position: absolute; top: 218%; left: 0; right: 0; 
+                  background: #fff; width: 275px;
                   list-style: none; padding: 0; margin: 0; 
                   max-height: 200px; overflow-y: auto; z-index: 1000;">
         </ul>
@@ -52,7 +52,7 @@
         <span>Giỏ hàng</span>
         <span th:if="${cartCount > 0}" class="cart-badge" 
               th:text="${cartCount}" 
-              style="background:red;color:white;border-radius:50%;padding:2px 6px;margin-left:4px;"></span>
+              style="background:red;color:white;border-radius:50%;padding:2px 6px;margin-left:4px; position: absolute; right: 7px; top: -8px;"></span>
       </a>
 
       <!-- <a th:href="@{/user/login}" class="header-action">
@@ -77,7 +77,7 @@
 
   <!-- Main Content -->
   <div class="main-content">
-    <div class="menu-sidebar">
+    <!-- <div class="menu-sidebar">
       <nav class="menu-nav">
         <h2 class="menu-title" style="font-size: 16px;">Menu</h2>
         <ul class="menu-list" type="none">
@@ -93,7 +93,7 @@
         </ul>
         <button id="toggleMenu">Xem thêm</button>
       </nav>
-    </div>
+    </div> -->
 
     <div class="right-content">
       
@@ -207,7 +207,7 @@
                 li.style.padding = "5px";
                 li.innerHTML = `<a href="/user/showDetailProduct/${p.productId}" style="text-decoration:none; color:black; display:flex; align-items:center;">
                                     <img src="/uploads/${p.imageUrl}" width="40" style="margin-right:10px;"> 
-                                    <span>${p.productName} - ${p.price} VNĐ</span>
+                                    <span>${p.productName} - ${p.price * 1000} VNĐ</span>
                                 </a>`;
                 resultsList.appendChild(li);
             });

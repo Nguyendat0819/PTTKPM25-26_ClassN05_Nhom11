@@ -225,16 +225,22 @@ td a:nth-child(2):hover {
 
 
 /* order-status table */
+.order-status{
+  display: flex;
+  flex-wrap: wrap;
+   justify-content: center;
+}
 .order-status h1 {
   text-align: center;
+  width: 100%;
   margin-bottom: 25px;
   color: #333;
   font-size: 26px;
 }
 
 .order-status table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 80%;
+  border-collapse: collapse;
 }
 
 .order-status th, .order-status td {

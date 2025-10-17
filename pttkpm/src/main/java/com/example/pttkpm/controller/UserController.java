@@ -34,7 +34,7 @@ public class UserController {
         @ModelAttribute User user
     ) {
         userService.addUser(user);
-        return "redirect:/success";
+        return "redirect:/user/login";
     }
 
     // hiển thị Login
