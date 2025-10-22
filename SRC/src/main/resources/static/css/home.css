@@ -323,18 +323,26 @@ body {
   cursor: pointer;
 }
 
-.logout-link {
-  display: none;
+.inner_ifor{
+  display: inline;
   position: absolute;
-  top: 45px;
-  right: 0;
-  background: #fff;
-  color: #333;
-  padding: 8px 14px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  height: 50px;
+  top: 44px;
+  background-color: #fff;
+  display: none;
 }
-
-.header-action:hover .logout-link {
+.logout-link {
+  color: #333;
+  padding: 10px 27px;
+  
+} 
+.buy {
+  color: #333;
+  padding: 10px 27px;
+}
+.top_ifor{
+  margin-top: 10px;
+}
+.header-action:hover .inner_ifor {
   display: block;
 }

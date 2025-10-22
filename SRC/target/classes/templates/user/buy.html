@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Diang Drink</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+</head>
+<body>
+    <header class="header">
+        <!-- Logo -->
+        <div class="logo-shop">
+            <a th:href="@{/user/home}" id="logo-link">
+                <img th:src="@{/images/logo-header.png}" alt="Diang Drink Logo" title="Trở về trang chủ">
+            </a>
+        </div>
+
+        
+
+        <!-- Actions -->
+        <div class="header-actions">
+        <a class="header-action" href="tel:1234.5678" title="Nhấn để gọi" style="text-decoration: none; color: white;">
+            <img th:src="@{/images/phone.png}" alt="phone-icon" title="Gọi ngay"> 
+            <div class="contact">0909 999 999</div>
+        </a>
+        <a th:href="@{/user/cart}" class="header-action">
+            <img th:src="@{/images/shopping-cart-empty-side-view.png}" alt="cart-icon" title="Xem giỏ hàng">
+            <span>Giỏ hàng</span>
+            <span th:if="${cartCount > 0}" class="cart-badge" 
+                th:text="${cartCount}" 
+                style="background:red;color:white;border-radius:50%;padding:2px 6px;margin-left:4px; position: absolute; right: 7px; top: -8px;"></span>
+        </a>
+
+       
+
+        <!-- Nếu chưa đăng nhập -->
+        <a th:if="${session.loggedInUser == null}" th:href="@{/user/login}" class="header-action">
+            <img th:src="@{/images/user.png}" alt="user-icon">
+            <span>Đăng nhập</span>
+        </a>
+
+        <!-- Nếu đã đăng nhập -->
+        <div th:if="${session.loggedInUser != null}" class="header-action">
+            <img th:src="@{/images/user.png}" alt="user-icon">
+            <span th:text="${session.loggedInUser.name}">Tên người dùng</span>
+            <div class="inner_ifor">
+                <div class="top_ifor">
+                    <a th:href="@{/user/buy}" class="buy" style="text-decoration: none;">Đơn mua</a>
+                </div>
+                <div class="top_ifor">
+                    <a th:href="@{/user/logout}" class="logout-link" style="text-decoration: none;">Đăng xuất</a>
+                </div>
+            </div>
+      </div>
+    </header>
+
+    <div class="container">
+        <div class="user-info" style="margin-bottom: 20px;">
+            <p><strong>Số điện thoại:</strong> <span th:text="${userPhone}"></span></p>
+            <p><strong>Địa chỉ:</strong> <span th:text="${userAddress}"></span></p>
+        </div>
+
+    <h2 style="text-align: center;">Lịch sử đơn hàng</h2>
+    <table border="1" style="width:50%; border-collapse:collapse; margin: auto;">
+        <thead style="background-color:#f2f2f2;">
+            <tr>
+                <th>Tổng tiền</th>
+                <th>Trạng thái</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="order : ${orders}">
+                <td>
+                    <span th:text="${#numbers.formatDecimal(order.total_amount, 0, 'COMMA', 3, 'POINT')}"  style="justify-content: center;"></span>
+                    <span >VNĐ</span>
+                </td>
+                <td >
+                    <span th:text="${order.status}" style="display: flex; justify-content: center;"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    </div>
+</body>
+</html>

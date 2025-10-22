@@ -13,6 +13,7 @@ com\example\pttkpm\reponsitory\WardRepository.class
 com\example\pttkpm\controller\CartController.class
 com\example\pttkpm\reponsitory\UserAddressRepository.class
 com\example\pttkpm\controller\UserController.class
+com\example\pttkpm\service\OrderService.class
 com\example\pttkpm\service\ProvinceService.class
 com\example\pttkpm\reponsitory\OrderRepository.class
 com\example\pttkpm\model\Ward.class
@@ -36,6 +37,7 @@ com\example\pttkpm\reponsitory\OrderDetailRepository.class
 com\example\pttkpm\reponsitory\PaymentRepository.class
 com\example\pttkpm\controller\GlobalModelAttributes.class
 com\example\pttkpm\service\UserService.class
+com\example\pttkpm\controller\HistoryBuyController.class
 com\example\pttkpm\controller\ProductController.class
 com\example\pttkpm\model\User.class
 com\example\pttkpm\service\ProductsService.class

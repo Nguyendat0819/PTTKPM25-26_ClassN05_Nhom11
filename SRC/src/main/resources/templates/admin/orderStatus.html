@@ -9,6 +9,31 @@
     <link href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@300;400;600&display=swap" rel="stylesheet">
     <!-- CSS trong static -->
     <link rel="stylesheet" th:href="@{/css/admin.css}">
+    <style>
+        .status {
+        font-weight: bold;
+        text-align: center;
+        border-radius: 8px;
+        padding: 4px 8px;
+        color: white;
+        }
+
+        /* Trạng thái tương ứng */
+        .status.PAID {
+        background-color: #4CAF50; /* xanh lá cây */
+        }
+
+        .status.CANCELLED {
+        background-color: #f44336; /* đỏ */
+        }
+
+        .status.NEW {
+        background-color: #FFC107; /* vàng */
+        color: black; /* chữ đen cho dễ đọc */
+        }
+    </style>
+
+
 </head>
 <body>
 <header class="header">
@@ -64,6 +89,7 @@
                     <th>Khách hàng</th>
                     <th>Tổng tiền (VNĐ)</th>
                     <th>Trạng thái</th>
+                    <th>Hành động</th>
                 </tr>
         </thead>
         <tbody>
@@ -71,7 +97,23 @@
                     <td th:text="${order.orderId}"></td>
                     <td th:text="${order.user.name}"></td>
                     <td th:text="${#numbers.formatDecimal(order.total_amount, 0, 'COMMA', 0, 'POINT')}"></td>
-                    <td th:text="${order.status}" th:class="'status ' + ${order.status}" style="width: 92%; border-radius: 0%;"></td>
+                    <td th:text="${order.status}" 
+                        th:class="'status ' + ${order.status}"
+                        style="width: 87%; border-radius: 0%;"
+                    >
+                    </td>
+                
+                    <td>
+                        <form th:action="@{/admin/update-status}" method="post">
+                            <input type="hidden" name="orderId" th:value="${order.orderId}" />
+                            <select name="status">
+                                <option value="NEW" th:selected="${order.status == 'NEW'}">Chờ xác nhận</option>
+                                <option value="PAID" th:selected="${order.status == 'PAID'}">Đã thanh toán</option>
+                                <option value="CANCELLED" th:selected="${order.status == 'CANCELLED'}">hủy</option>
+                            </select>
+                            <button type="submit">Cập nhật</button>
+                        </form>
+                    </td> 
                 </tr>
         </tbody>
     </table>

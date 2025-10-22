@@ -75,11 +75,6 @@ public class UserController {
     }
 
 
-    // @GetMapping("/admin/manageCustomers")
-    // public String manageCustomersView(Model model){
-    //     List<User> users = userService.getAllUsers();
-    //     model.addAttribute("users", users);
-    //     return "admin/manageCustomers";
-    // }
+    
 
 }

@@ -5,6 +5,7 @@ D:\java\PTTKPM25_26\SRC\src\main\java\com\example\pttkpm\controller\CartControll
 D:\java\PTTKPM25_26\SRC\src\main\java\com\example\pttkpm\controller\CheckoutController.java
 D:\java\PTTKPM25_26\SRC\src\main\java\com\example\pttkpm\controller\DbTestController.java
 D:\java\PTTKPM25_26\SRC\src\main\java\com\example\pttkpm\controller\GlobalModelAttributes.java
+D:\java\PTTKPM25_26\SRC\src\main\java\com\example\pttkpm\controller\HistoryBuyController.java
 D:\java\PTTKPM25_26\SRC\src\main\java\com\example\pttkpm\controller\ProductController.java
 D:\java\PTTKPM25_26\SRC\src\main\java\com\example\pttkpm\controller\ProductsApiController.java
 D:\java\PTTKPM25_26\SRC\src\main\java\com\example\pttkpm\controller\ProfitController.java
@@ -35,6 +36,7 @@ D:\java\PTTKPM25_26\SRC\src\main\java\com\example\pttkpm\reponsitory\UserReponsi
 D:\java\PTTKPM25_26\SRC\src\main\java\com\example\pttkpm\reponsitory\WardRepository.java
 D:\java\PTTKPM25_26\SRC\src\main\java\com\example\pttkpm\service\CartService.java
 D:\java\PTTKPM25_26\SRC\src\main\java\com\example\pttkpm\service\DistrictService.java
+D:\java\PTTKPM25_26\SRC\src\main\java\com\example\pttkpm\service\OrderService.java
 D:\java\PTTKPM25_26\SRC\src\main\java\com\example\pttkpm\service\ProductsService.java
 D:\java\PTTKPM25_26\SRC\src\main\java\com\example\pttkpm\service\ProvinceService.java
 D:\java\PTTKPM25_26\SRC\src\main\java\com\example\pttkpm\service\UserService.java
