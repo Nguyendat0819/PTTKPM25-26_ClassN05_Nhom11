@@ -61,6 +61,17 @@
 
             <form th:action="@{/user/checkout/doCheckout}" method="post">
                 <div class="mb-3">
+                    <label class="form-label fw-semibold">Số điện thoại</label>
+                    <input type="text"
+                    class="form-control"
+                    name="phone"
+                    placeholder="Nhập số điện thoai:"
+                    autocomplete="off"
+                    th:value="${user != null && user.phone != null ? user.phone : ''}"
+                    >
+                </div>
+
+                <div class="mb-3">
                     <label class="form-label fw-semibold">Địa chỉ nhà:</label>
                     <input type="text" class="form-control" name="homeAddress"
                            th:value="${userAddress != null ? userAddress.homeAddress : ''}"

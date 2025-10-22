@@ -26,7 +26,7 @@
     </div>
 
     <!-- search -->
-    <div class="search-bar" style="position: relative;">
+    <!-- <div class="search-bar" style="position: relative;">
       <input type="text" id="searchBox" name="query" placeholder="Tìm kiếm đồ uống..." class="search-input">
       <button class="header-search-btn">
         <img th:src="@{/images/search.png}" alt="search-icon" title="Tìm kiếm">
@@ -37,7 +37,7 @@
                 list-style: none; padding: 0; margin: 0; 
                 max-height: 200px; overflow-y: auto; z-index: 1000;">
       </ul>
-    </div>
+    </div> -->
 
     <!-- Actions -->
     <div class="header-actions">
@@ -45,11 +45,11 @@
         <img th:src="@{/images/phone.png}" alt="phone-icon" title="Gọi ngay"> 
         <div class="contact">0909 999 999</div>
       </a>
-      <a th:href="@{/cart}" class="header-action">
+      <a th:href="@{/user/cart}" class="header-action">
         <img th:src="@{/images/shopping-cart-empty-side-view.png}" alt="cart-icon" title="Xem giỏ hàng">
         <span>Giỏ hàng</span>
       </a>
-      <a th:href="@{/login}" class="header-action">
+      <a th:href="@{/user/login}" class="header-action">
         <img th:src="@{/images/user.png}" alt="user-icon" title="Xem tài khoản">
         <span>Tài khoản</span>
       </a>
@@ -78,27 +78,9 @@
 
       <p class="text-muted mb-3">
         Tình trạng: 
-        <span th:text="${product.status}"></span>
+        <!-- <span th:text="${product.status}"></span> -->
+        <span th:text="${product.status.name() == 'AVAILABLE' ? 'Còn hàng' : 'Hết hàng'}"></span>
       </p>
-
-      <!-- Size: chỉ hiển thị text -->
-      <!-- <div class="mb-3">
-        <strong>Size:</strong>
-        <span class="ms-2" th:text="${product.size}">S, M, L</span>
-      </div> -->
-
-      <!-- Giá -->
-      <!-- <h5 class="text-success fw-semibold mb-4">
-        Giá: 
-        <span th:text="${#numbers.formatDecimal(product.price, 0, 'POINT', '.', ' VND')}">
-          135.000 VND
-        </span>
-      </h5> -->
-
-      <!-- Mô tả sản phẩm -->
-      <!-- <p class="mb-4" th:text="${product.description}">
-        Mô tả chi tiết sản phẩm...
-      </p> -->
 
       <!-- Form thêm giỏ hàng -->
       <form th:action="@{/user/cart}" method="post" class="d-flex align-items-center mb-3">
@@ -111,20 +93,17 @@
         </button>
       </form>
 
-      <!-- Nút mua ngay -->
-      <!-- <button id="buyProduct" class="btn btn-success px-4 py-2 fw-semibold">
-       Mua ngay
-      </button> -->
+     
     </div>
   </div>
 </div>
 
 
   <!-- Footer -->
-  <footer class="footer">
-    <div class="footer-content">
+  <footer class="footer" style="height: 100%;">
+    <div class="footer-content" style="padding: 16px;">
       <div class="logo-footer">
-        <a th:href="@{#}">
+        <a th:href="@{user/home}">
           <img th:src="@{/images/logo-header.png}" alt="logo-footer" title="Diang Drink">
         </a>
       </div>

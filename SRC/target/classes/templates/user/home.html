@@ -70,7 +70,7 @@
       <div th:if="${session.loggedInUser != null}" class="header-action">
         <img th:src="@{/images/user.png}" alt="user-icon">
         <span th:text="${session.loggedInUser.name}">Tên người dùng</span>
-        <a th:href="@{/user/logout}" class="logout-link">Đăng xuất</a>
+        <a th:href="@{/user/logout}" class="logout-link" style="text-decoration: none;">Đăng xuất</a>
       </div>
     </div>
   </header>
@@ -112,6 +112,7 @@
                         </div>
                         <div class="squard_items_price">
                           <span th:text="${product.price}"></span>
+                          <span>VNĐ</span>
                         </div>
                       </div>
                     </a>

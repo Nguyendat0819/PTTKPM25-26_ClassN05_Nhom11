@@ -84,6 +84,7 @@ public class CheckoutController {
             @RequestParam("provinceId") Integer provinceId,
             @RequestParam("districtId") Integer districtId,
             @RequestParam("wardId") Integer wardId,
+            @RequestParam("phone") String phone,
             HttpSession session,
             Model model,
             RedirectAttributes redirectAttributes) {
@@ -92,7 +93,10 @@ public class CheckoutController {
         if (user == null) {
             return "redirect:/user/login";
         }
-
+        // Cập nhật hoặc lưu số điện thoại
+        user.setPhone(phone);
+        userRepository.save(user);
+        session.setAttribute("loggedInUser", user); 
         List<OrderDetail> selectedDetails = (List<OrderDetail>) session.getAttribute("selectedDetails");
         if (selectedDetails == null || selectedDetails.isEmpty()) {
             redirectAttributes.addFlashAttribute("errorMessage", "Không có sản phẩm để thanh toán!");
